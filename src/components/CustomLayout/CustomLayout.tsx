@@ -1,8 +1,10 @@
 'use client'
 import React, { useMemo } from "react"
-import { Box } from "@mui/material";
+import { Box, ThemeProvider } from "@mui/material";
 import { usePathname } from "next/navigation";
 import { handleTopbarVisibility } from "@/utils/helpers/helpers";
+import { customTheme } from "@/utils/theme/custom-theme";
+import classes from './customLaout.module.css';
 
 
 interface CustomLayoutProps {
@@ -16,17 +18,18 @@ const CustomLayout: React.FC<CustomLayoutProps> = ({ children }) => {
     }, [urlPath]);
 
     return (
-        showTopBar ?
-            <>
-                <div>topbar</div>
-                {children}
-            </>
-            :
-            <>
-                <Box>
+        <ThemeProvider theme={customTheme}>
+            {showTopBar ?
+                <>
+                    <div>topbar</div>
+                    {children}
+                </>
+                :
+                <Box component={'div'} className={classes.authContainer} padding={{ xs: '1rem', md: '0' }}>
                     {children}
                 </Box>
-            </>
+            }
+        </ThemeProvider>
     )
 }
 export default CustomLayout
