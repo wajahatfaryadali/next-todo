@@ -3,10 +3,11 @@ import CustomLayout from "@/components/CustomLayout/CustomLayout";
 import CreateTodo from "@/components/TodoComponents/CreateTodo/CreateTodo";
 import { Box, List, Typography } from "@mui/material";
 import classes from "./page.module.css";
-// import MListItem from "@/components/TodoComponents/MListItem.tsx/MListItem";
 import dynamic from "next/dynamic";
+import { useState } from "react";
+import ConfirmBox from "@/components/TodoComponents/ConfirmBox/ConfirmBox";
 
-const MListItem = dynamic(() => import("@/components/TodoComponents/MListItem.tsx/MListItem"), { ssr: false })
+const MListItem = dynamic(() => import("@/components/muiComponents/MListItem.tsx/MListItem"), { ssr: false })
 
 const tempData = [
   {
@@ -83,10 +84,30 @@ const tempData = [
   },
 ]
 
+interface ConfirmBoxState {
+  delete: boolean;
+  edit: boolean;
+}
+
 export default function Home() {
 
+  const [confirmBox, setConfirmBox] = useState<ConfirmBoxState>({ delete: false, edit: false })
+
+  const handleCancel = () => {
+    setConfirmBox({ delete: false, edit: false });
+  }
+
+  const handleDelete = () => {
+    alert('delete')
+  }
+
+  const handleEdit = () => {
+    alert('edit')
+
+  }
+
   const handleTodoClick = (clickType: string) => {
-    console.log('click ', clickType)
+    setConfirmBox(prevState => ({ ...prevState, [clickType]: true }))
   }
 
   return (
@@ -118,6 +139,21 @@ export default function Home() {
             </Box>
           </Box>
         </div>
+        <ConfirmBox
+          title="Confirm Delete"
+          message="message"
+          open={confirmBox.delete}
+          cancelHandler={handleCancel}
+          confirmHandler={handleDelete}
+        />
+
+        <ConfirmBox
+          title="Edit Todo"
+          message="message"
+          open={confirmBox.edit}
+          cancelHandler={handleCancel}
+          confirmHandler={handleEdit}
+        />
       </CustomLayout>
     </main>
   );
