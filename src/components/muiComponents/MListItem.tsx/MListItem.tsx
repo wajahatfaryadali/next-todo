@@ -1,5 +1,5 @@
-'use client'
-import React, { useState } from 'react'
+
+import React from 'react'
 import {
     Box, Checkbox, IconButton,
     // InputBase,
@@ -18,33 +18,37 @@ type todo = {
 
 interface MListItemProps {
     todo: todo;
-    handleTodoClick: (clickType: string) => void
+    handleTodoClick: (clickType: string, todoId: number) => void
 }
 
 const MListItem: React.FC<MListItemProps> = (props) => {
     const { todo, handleTodoClick } = props;
 
-    const [isChecked, setIsChecked] = useState<boolean>(todo.completed)
-
     return (
         <ListItem
             secondaryAction={
                 <Box component={'div'} display={'flex'} gap={1}>
-                    <IconButton edge="end" aria-label="delete" onClick={() => handleTodoClick('delete')} >
+                    <IconButton edge="end" aria-label="delete" onClick={() => handleTodoClick('delete', todo.id)} >
                         <DeleteOutlineOutlinedIcon color='primary' />
                     </IconButton>
-                    <IconButton edge="end" aria-label="edit" onClick={() => handleTodoClick('edit')} >
+                    <IconButton edge="end" aria-label="edit" onClick={() => handleTodoClick('edit', todo.id)} >
                         <EditOutlinedIcon color='primary' />
                     </IconButton>
                 </Box>
             }
-            sx={{ borderBottom: "1px solid #242930", backgroundColor: "#525d6d", borderRadius: '8px', mt: '1rem', paddingRight: '92px' }}
+            sx={{
+                borderBottom: "1px solid #242930",
+                backgroundColor: "#525d6d",
+                borderRadius: '8px',
+                mt: '1rem',
+                paddingRight: '92px'
+            }}
         >
             <ListItemIcon>
                 <Checkbox
-                    checked={isChecked}
+                    checked={todo.completed}
                     disableRipple
-                    onClick={() => setIsChecked(prevState => !prevState)}
+                    onClick={() => handleTodoClick('check', todo.id)}
                     color='primary'
                     sx={{
                         color: "white",
@@ -54,8 +58,8 @@ const MListItem: React.FC<MListItemProps> = (props) => {
             <Box component={'div'} width={'100%'}>
                 <ListItemText
                     primary={todo.todo}
-                    onClick={() => setIsChecked(prevState => !prevState)}
-                    sx={{ cursor: 'pointer' }}
+                    onClick={() => handleTodoClick('check', todo.id)}
+                    sx={{ cursor: 'pointer', textDecoration: todo.completed ? 'line-through' : '' }}
                 />
             </Box>
         </ListItem>

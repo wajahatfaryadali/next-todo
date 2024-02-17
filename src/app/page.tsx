@@ -4,7 +4,7 @@ import CreateTodo from "@/components/TodoComponents/CreateTodo/CreateTodo";
 import { Box, List, Typography } from "@mui/material";
 import classes from "./page.module.css";
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ConfirmBox from "@/components/TodoComponents/ConfirmBox/ConfirmBox";
 
 const MListItem = dynamic(() => import("@/components/muiComponents/MListItem.tsx/MListItem"), { ssr: false })
@@ -89,26 +89,66 @@ interface ConfirmBoxState {
   edit: boolean;
 }
 
+interface TodoListState {
+  id: number;
+  todo: string;
+  completed: boolean;
+  userId: number;
+}
+
 export default function Home() {
 
   const [confirmBox, setConfirmBox] = useState<ConfirmBoxState>({ delete: false, edit: false })
+  const [todoList, setTodoList] = useState<TodoListState[]>([])
+  const [selected, setSelected] = useState<TodoListState | null>(null)
+
+  useEffect(() => {
+    setTodoList(tempData)
+  }, [])
+
+
+
+
 
   const handleCancel = () => {
     setConfirmBox({ delete: false, edit: false });
   }
 
   const handleDelete = () => {
-    alert('delete')
+    if (selected) {
+      const updatedTodoList = todoList.filter(item => item.id !== selected.id);
+      setTodoList(updatedTodoList);
+      setConfirmBox({ delete: false, edit: false });
+      setSelected(null);
+    }
   }
 
   const handleEdit = () => {
-    alert('edit')
+    if (selected) {
+      const updatedTodoList = todoList.map(item =>
+        item.id === selected.id ? { ...item, todo: "text updated" } : item
 
+      );
+      setTodoList(updatedTodoList);
+      setConfirmBox({ delete: false, edit: false });
+      setSelected(null);
+    }
   }
 
-  const handleTodoClick = (clickType: string) => {
-    setConfirmBox(prevState => ({ ...prevState, [clickType]: true }))
+  const handleTodoClick = (clickType: string, todoId: number) => {
+    if (clickType === 'check') {
+      const updatedTodoList = todoList.map(item =>
+        item.id === todoId ? { ...item, completed: !item.completed } : item
+      );
+      setTodoList(updatedTodoList);
+    } else {
+      setConfirmBox(prevState => ({ ...prevState, [clickType]: true }))
+      const selectedItem = todoList.find(item => item.id === todoId);
+      setSelected(selectedItem || null);
+    }
   }
+
+  console.log(todoList)
 
   return (
     <main>
@@ -128,11 +168,12 @@ export default function Home() {
                 variant="h5"
                 fontSize={{ xs: '1rem', sm: '1.5rem' }}
                 className={classes.titleContainer}
+                mb={'1rem'}
               >
                 No tasks available. Add some tasks!
               </Typography>
               <List classes={{ root: classes.listItemContainer }} sx={{ mb: '2rem', p: { xs: '0.25rem', sm: '1rem 2rem 1rem' } }} >
-                {tempData.map((todo) =>
+                {todoList.map((todo) =>
                   <MListItem key={todo.id} todo={todo} handleTodoClick={handleTodoClick} />
                 )}
               </List>
