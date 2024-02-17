@@ -20,6 +20,10 @@ docs/.
 dummyjson.com/docs/.
   - Ensure CRUD (Create, Read, Update, Delete) operations for to-dos.
 
+### packges used
+[MUI with icons](https://mui.com/material-ui/getting-started/installation/)
+
+
 ### 
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
