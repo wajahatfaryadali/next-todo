@@ -182,15 +182,15 @@ export default function Home() {
         </div>
         <ConfirmBox
           title="Confirm Delete"
-          message="message"
+          message={selected?.todo ?? ""}
           open={confirmBox.delete}
           cancelHandler={handleCancel}
           confirmHandler={handleDelete}
         />
 
         <ConfirmBox
-          title="Edit Todo"
-          message="message"
+          title="Update Todo"
+          message={selected?.todo ?? ""}
           open={confirmBox.edit}
           cancelHandler={handleCancel}
           confirmHandler={handleEdit}
