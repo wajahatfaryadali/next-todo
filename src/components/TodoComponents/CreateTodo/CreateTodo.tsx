@@ -3,6 +3,7 @@
 import MTextField from "@/components/muiComponents/MTextField/MTextField"
 import { Box } from "@mui/material"
 import { useState } from "react"
+import classes from "./index.module.css"
 
 const CreateTodo = () => {
 
@@ -30,11 +31,14 @@ const CreateTodo = () => {
         >
             <MTextField
                 id="todo"
-                label="todo"
-                type="text"
                 value={todo}
+                label='Todo'
+                type="text"
+                // variant="standard"
+                variant="outlined"
                 onChange={handleChange}
-                required
+                rootClass={classes.InputField}
+                buttonOnLast="Add"
             />
         </Box>
 
