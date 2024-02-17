@@ -6,6 +6,7 @@ import { SignUpFormValueState } from '../config'
 import { Box, Button, TextField, Typography } from '@mui/material'
 import Link from 'next/link'
 import { URL_SIGN_IN } from '@/utils/routes-path'
+import MTextField from '@/components/muiComponents/MTextField/MTextField'
 
 const page = () => {
 
@@ -44,7 +45,7 @@ const page = () => {
           <Typography variant="h5" textAlign={'center'}>
             Sign Up
           </Typography>
-          <TextField
+          <MTextField
             id="email"
             label="Email"
             type="email"
@@ -52,14 +53,13 @@ const page = () => {
             onChange={handleChange}
             required
           />
-          <TextField
+          <MTextField
             id="password"
             label="Password"
             type="password"
             value={value.password}
             onChange={handleChange}
             required
-            sx={{ color: '#fff' }}
           />
 
           <TextField

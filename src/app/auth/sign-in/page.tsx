@@ -1,11 +1,12 @@
 'use client'
 import CustomLayout from '@/components/CustomLayout/CustomLayout'
 import BoxContainer from '@/components/muiComponents/BoxContainer/BoxContainer'
-import { Box, Button, TextField, Typography } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { URL_SIGN_UP } from '@/utils/routes-path'
 import { SignInFormValueState } from '../config'
+import MTextField from '@/components/muiComponents/MTextField/MTextField'
 
 const page = () => {
 
@@ -37,12 +38,12 @@ const page = () => {
           gap={2}
         >
           <Typography variant="h4" textAlign={'center'}>
-          todoz app
+            todoz app
           </Typography>
           <Typography variant="h5" textAlign={'center'}>
             Sign In
           </Typography>
-          <TextField
+          <MTextField
             id="email"
             label="Email"
             type="email"
@@ -50,14 +51,13 @@ const page = () => {
             onChange={handleChange}
             required
           />
-          <TextField
+          <MTextField
             id="password"
             label="Password"
             type="password"
             value={value.password}
             onChange={handleChange}
             required
-            sx={{ color: '#fff' }}
           />
 
           <Button variant='contained' fullWidth type='submit'>
