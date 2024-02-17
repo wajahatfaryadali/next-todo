@@ -1,8 +1,11 @@
+import CustomLayout from '@/components/CustomLayout/CustomLayout'
 import React from 'react'
 
 const page = () => {
   return (
-    <>sign up page</>
+    <CustomLayout>
+      sign up page
+    </CustomLayout>
   )
 }
 

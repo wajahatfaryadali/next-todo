@@ -1,8 +1,9 @@
+import CustomLayout from '@/components/CustomLayout/CustomLayout'
 import React from 'react'
 
 const page = () => {
   return (
-    <div>sing in page</div>
+    <CustomLayout>sing in page</CustomLayout>
   )
 }
 
