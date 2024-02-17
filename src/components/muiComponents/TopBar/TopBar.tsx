@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Link from 'next/link';
 import classes from './topBar.module.css'
-import { URL_HOME, URL_SIGN_IN, URL_SIGN_UP } from '@/utils/routes-path';
+import { URL_HOME, URL_SIGN_IN } from '@/utils/routes-path';
 import LogoutPopper from '../MPopper/LogoutPopper';
 
 
