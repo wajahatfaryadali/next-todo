@@ -1,10 +1,13 @@
 import CustomLayout from '@/components/CustomLayout/CustomLayout'
+import BoxContainer from '@/components/muiComponents/BoxContainer/BoxContainer'
 import React from 'react'
 
 const page = () => {
   return (
     <CustomLayout>
-      sign up page
+      <BoxContainer>
+        sign up page
+      </BoxContainer>
     </CustomLayout>
   )
 }
