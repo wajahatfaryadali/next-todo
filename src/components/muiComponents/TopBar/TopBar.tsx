@@ -5,6 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Link from 'next/link';
 import classes from './topBar.module.css'
 import { URL_HOME, URL_SIGN_IN, URL_SIGN_UP } from '@/utils/routes-path';
+import LogoutPopper from '../MPopper/LogoutPopper';
 
 
 const TopBar = () => {
@@ -27,12 +28,7 @@ const TopBar = () => {
                             </Link>
                         </Box>
                         <>
-                            <Link href={URL_SIGN_IN}>
-                                signIn
-                            </Link>
-                            <Link href={URL_SIGN_UP}>
-                                signUp
-                            </Link>
+                            <LogoutPopper />
                         </>
                     </Container>
                 </Toolbar>
