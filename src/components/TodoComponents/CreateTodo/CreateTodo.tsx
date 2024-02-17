@@ -14,7 +14,6 @@ const CreateTodo = () => {
     }
 
     const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-
         setTodo(event.target.value)
     }
 
@@ -22,12 +21,8 @@ const CreateTodo = () => {
         <Box
             component={'form'}
             onSubmit={handleSubmit}
-            sx={{
-                width: { xs: '100%', sm: '90%', md: '80%' },
-                borderBottom: "1px solid #242930",
-                backgroundColor: "#23282f",
-                borderRadius: '8px', p: '1rem'
-            }}
+            className={classes.formContainer}
+            width={{ xs: '100%', sm: '90%', md: '80%' }}
         >
             <MTextField
                 id="todo"
