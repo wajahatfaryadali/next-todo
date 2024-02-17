@@ -5,12 +5,7 @@ import { Box, Button, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { URL_SIGN_UP } from '@/utils/routes-path'
-
-
-interface SignInFormValueState {
-  email: string;
-  password: string | number;
-}
+import { SignInFormValueState } from '../config'
 
 const page = () => {
 
@@ -42,7 +37,7 @@ const page = () => {
           gap={2}
         >
           <Typography variant="h4" textAlign={'center'}>
-            Todo App
+          todoz app
           </Typography>
           <Typography variant="h5" textAlign={'center'}>
             Sign In
