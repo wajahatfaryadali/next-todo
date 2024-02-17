@@ -1,10 +1,94 @@
+'use client'
 import CustomLayout from "@/components/CustomLayout/CustomLayout";
 import CreateTodo from "@/components/TodoComponents/CreateTodo/CreateTodo";
-import { Box, List, ListItem, Typography } from "@mui/material";
+import { Box, List, Typography } from "@mui/material";
 import classes from "./page.module.css";
-import BoxContainer from "@/components/muiComponents/BoxContainer/BoxContainer";
+// import MListItem from "@/components/TodoComponents/MListItem.tsx/MListItem";
+import dynamic from "next/dynamic";
+
+const MListItem = dynamic(() => import("@/components/TodoComponents/MListItem.tsx/MListItem"), { ssr: false })
+
+const tempData = [
+  {
+    id: 1,
+    todo: "Do something nice for someone I care about",
+    completed: true,
+    userId: 26
+  },
+  {
+    id: 2,
+    todo: "Memorize the fifty states and their capitals",
+    completed: false,
+    userId: 48
+  },
+  {
+    id: 3,
+    todo: "Watch a classic movie",
+    completed: false,
+    userId: 4
+  },
+  {
+    id: 4,
+    todo: "Contribute code or a monetary donation to an open-source software project",
+    completed: false,
+    userId: 48
+  },
+  {
+    id: 5,
+    todo: "Solve a Rubik's cube",
+    completed: false,
+    userId: 31
+  },
+  {
+    id: 8,
+    todo: "Write a thank you letter to an influential person in your life",
+    completed: true,
+    userId: 13
+  },
+  {
+    id: 9,
+    todo: "Invite some friends over for a game night",
+    completed: false,
+    userId: 47
+  },
+  {
+    id: 10,
+    todo: "Have a football scrimmage with some friends",
+    completed: false,
+    userId: 19
+  },
+  {
+    id: 11,
+    todo: "Text a friend you haven't talked to in a long time",
+    completed: false,
+    userId: 39
+  },
+  {
+    id: 12,
+    todo: "Organize your pantry",
+    completed: true,
+    userId: 39
+  },
+  {
+    id: 13,
+    todo: "Buy a new house decoration",
+    completed: false,
+    userId: 16
+  },
+  {
+    id: 14,
+    todo: "Plan a vacation you've always wanted to take",
+    completed: false,
+    userId: 28
+  },
+]
 
 export default function Home() {
+
+  const handleTodoClick = (clickType: string) => {
+    console.log('click ', clickType)
+  }
+
   return (
     <main>
       <CustomLayout>
@@ -17,29 +101,19 @@ export default function Home() {
             <CreateTodo />
           </Box>
           {/* list container */}
-          <Box component={'div'} width={'100%'} display={'flex'} justifyContent={'center'}>
+          <Box component={'div'} className={classes.listContainer}>
             <Box sx={{ width: { xs: '100%', sm: '90%', md: '80%' }, pt: '2rem' }}>
               <Typography
                 variant="h5"
                 fontSize={{ xs: '1rem', sm: '1.5rem' }}
-                className={classes.darkContainer}
-                mb={'1rem'}
-                textAlign={'center'}
-                pb={1}
-                color="whitesmoke"
+                className={classes.titleContainer}
               >
                 No tasks available. Add some tasks!
               </Typography>
-              <List classes={{ root: classes.listContainer }} sx={{ mb: '2rem' }} >
-                <ListItem>
-                  temp 1
-                </ListItem>
-                <ListItem>
-                  temp 2
-                </ListItem>
-                <ListItem>
-                  temp 3
-                </ListItem>
+              <List classes={{ root: classes.listItemContainer }} sx={{ mb: '2rem', p: { xs: '0.25rem', sm: '1rem 2rem 1rem' } }} >
+                {tempData.map((todo) =>
+                  <MListItem key={todo.id} todo={todo} handleTodoClick={handleTodoClick} />
+                )}
               </List>
             </Box>
           </Box>
