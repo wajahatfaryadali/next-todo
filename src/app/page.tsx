@@ -149,7 +149,7 @@ export default function Home() {
 
 
   return (
-    <main>
+    <main className={classes.main}>
       <CustomLayout>
         <div style={{ position: 'relative' }}>
           <Box
