@@ -45,7 +45,8 @@ export const todoSlice = createSlice({
             state.total = data.total;
         },
         resetTodos: (state) => {
-            state.todos = initialState.todos
+            state.todos = initialState.todos;
+            state.total = initialState.total;
         },
     },
 })

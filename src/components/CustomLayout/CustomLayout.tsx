@@ -10,6 +10,7 @@ import Loading from "@/app/loading";
 import { useSelector } from "react-redux";
 import { currentUser } from "@/store/slices/selectors/user.selector";
 import { URL_SIGN_IN, URL_SIGN_UP } from "@/utils/routes-path";
+import { toaster } from "@/utils/helpers/toaster";
 
 
 interface CustomLayoutProps {
@@ -31,6 +32,9 @@ const CustomLayout: React.FC<CustomLayoutProps> = ({ children }) => {
     useEffect(() => {
         if (!user.token && urlPath !== URL_SIGN_UP) {
             router.replace(URL_SIGN_IN)
+            if (urlPath !== URL_SIGN_IN) {
+                toaster.show('error', 'Please Sign-in First.')
+            }
         }
     }, [user, urlPath])
 
