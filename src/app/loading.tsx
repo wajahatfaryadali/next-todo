@@ -1,9 +1,16 @@
-import { Box } from "@mui/material";
+import * as React from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
+import Backdrop from '@mui/material/Backdrop';
 
-export default function Loading() {
+
+export default function FullPageLoader(props: { loading?: boolean }) {
+    const { loading = true } = props;
     return (
-        <Box component={'div'} width={'100vh'} height={'100vh'} display={'flex'} justifyContent={'center'} alignItems={'center'} textAlign={'center'}>
-            Loading ....
-        </Box>
-    )
+        <Backdrop
+            open={loading}
+            sx={{ color: '#fff', zIndex: 100000 }}
+        >
+            <CircularProgress color="primary" />
+        </Backdrop>
+    );
 }

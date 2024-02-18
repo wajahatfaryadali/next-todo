@@ -12,22 +12,31 @@ export interface userApiResponse {
 }
 
 export interface userSliceState {
-    user: userApiResponse;
+    currentUser: userApiResponse;
     authToken: string;
 }
 
 const initialState = {
-    user: {},
+    currentUser: {
+        email: '',
+        firstName: '',
+        gender: '',
+        id: '',
+        image: '',
+        lastName: '',
+        token: '',
+        username: '',
+    },
     authToken: '',
 }
 
 export const userSlice = createSlice({
-    name: 'user',
+    name: 'userSlice',
     initialState,
     reducers: {
         setUser: (state, action) => {
-            console.log('action *** ', action.payload)
-            console.log('state *** ', state)
+            state.currentUser = action?.payload;
+            state.authToken = action?.payload?.token ?? "";
         },
         getUser: (state, action) => {
             console.log('action *** ', action.payload)
@@ -37,9 +46,13 @@ export const userSlice = createSlice({
             console.log('action *** ', action.payload)
             console.log('state *** ', state)
         },
+        removeUser: (state) => {
+            state.currentUser = initialState.currentUser;
+            state.authToken = initialState.authToken;
+        },
     },
 })
 
-export const { setUser, getUser, getAuthToken, } = userSlice.actions
+export const { setUser, getUser, getAuthToken, removeUser } = userSlice.actions
 
 export default userSlice.reducer

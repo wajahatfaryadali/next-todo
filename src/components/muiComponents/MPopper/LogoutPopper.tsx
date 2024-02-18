@@ -7,10 +7,15 @@ import {
 // import avatar from '@/assets/images/userPlaceholder.jpg'
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import React from 'react'
+import { useDispatch } from 'react-redux';
+import { removeUser } from '@/store/slices/userSlice';
+import { toaster } from '@/utils/helpers/toaster';
 
 const LogoutPopper = () => {
 
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+
+    const dispatch = useDispatch();
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
@@ -24,7 +29,8 @@ const LogoutPopper = () => {
     const id = open ? 'simple-popover' : undefined;
 
     const handleLogout = () => {
-        alert('working')
+        dispatch(removeUser())
+        toaster.show('success', '')
     }
 
     return (

@@ -7,6 +7,8 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import ConfirmBox from "@/components/TodoComponents/ConfirmBox/ConfirmBox";
 import UpdateTodoBox from "@/components/TodoComponents/UpdateTodoBox/UpdateTodoBox";
+import { useSelector } from "react-redux";
+import { authToken, currentUser } from "@/store/slices/user.selector";
 
 const MListItem = dynamic(() => import("@/components/muiComponents/MListItem.tsx/MListItem"), { ssr: false })
 
@@ -102,6 +104,12 @@ export default function Home() {
   const [confirmBox, setConfirmBox] = useState<ConfirmBoxState>({ delete: false, edit: false })
   const [todoList, setTodoList] = useState<TodoListState[]>([])
   const [selected, setSelected] = useState<TodoListState | null>(null)
+
+  const user = useSelector(currentUser);
+  const token = useSelector(authToken);
+  console.log('user *** ', user)
+  console.log('token *** ', token)
+
 
   useEffect(() => {
     setTodoList(tempData)
