@@ -170,6 +170,9 @@ export default function Home() {
               >
                 No tasks available. Add some tasks!
               </Typography>
+              {/* handle different view */}
+              {/* All Todos */}
+              {/* Completed */}
               <List classes={{ root: classes.listItemContainer }} sx={{ mb: '2rem', p: { xs: '0.25rem', sm: '1rem 2rem 1rem' } }} >
                 {todoList.map((todo) =>
                   <MListItem key={todo.id} todo={todo} handleTodoClick={handleTodoClick} />
