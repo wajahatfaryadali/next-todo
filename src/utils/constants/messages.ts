@@ -13,4 +13,5 @@ export const SUCCESS_USER_LOGIN = "User logged in Successfully"
 export const SUCCESS_USER_LOGOUT = "User logged out Successfully"
 export const SUCCESS_USER_ADDED = "User added Successfully"
 
-export const USER_CREATION_WARNING= "Please note that login is not possible with the created user due to the simulated nature of the process, and the user details will not be stored in the database. This behavior is in accordance with the DummyJSON documentation."
+export const USER_CREATION_WARNING = "Please note that login is not possible with the created user due to the simulated nature of the process, and the user details will not be stored in the database. This behavior is in accordance with the DummyJSON documentation."
+export const NEW_TODO_ADDED = "New Todo added Successfully."

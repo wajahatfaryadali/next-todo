@@ -15,6 +15,7 @@ import { getUsersTodoListApi } from "@/apis/todos/todoApis";
 import { useRouter } from "next/navigation";
 import { URL_SIGN_IN } from "@/utils/routes-path";
 import { todosList } from "@/store/slices/selectors/todo.selector";
+import FullPageLoader from "./loading";
 
 const MListItem = dynamic(() => import("@/components/muiComponents/MListItem.tsx/MListItem"), { ssr: false })
 
@@ -37,8 +38,7 @@ export default function Home() {
   // getting todos from store
   const todos = useSelector(todosList)
 
-  useEffect(() => {
-    setLoading(true)
+  const getAllTodosApiCall = () => {
     if (user && user.id) {
       getUsersTodoListApi(user.id)
         .then(res => {
@@ -54,6 +54,11 @@ export default function Home() {
     } else {
       router.push(URL_SIGN_IN)
     }
+  }
+
+  useEffect(() => {
+    setLoading(true)
+    getAllTodosApiCall()
   }, []);
 
 
@@ -86,18 +91,16 @@ export default function Home() {
 
   const handleTodoClick = (clickType: string, todoId: number) => {
     if (clickType === 'check') {
-    //   const updatedTodoList = todoList.map(item =>
-    //     item.id === todoId ? { ...item, completed: !item.completed } : item
-    //   );
-    //   setTodoList(updatedTodoList);
-    // } else {
-    //   setConfirmBox(prevState => ({ ...prevState, [clickType]: true }))
-    //   const selectedItem = todoList.find(item => item.id === todoId);
-    //   setSelected(selectedItem || null);
+      //   const updatedTodoList = todoList.map(item =>
+      //     item.id === todoId ? { ...item, completed: !item.completed } : item
+      //   );
+      //   setTodoList(updatedTodoList);
+      // } else {
+      //   setConfirmBox(prevState => ({ ...prevState, [clickType]: true }))
+      //   const selectedItem = todoList.find(item => item.id === todoId);
+      //   setSelected(selectedItem || null);
     }
   }
-
-
 
   return (
     <main className={classes.main}>
@@ -147,6 +150,7 @@ export default function Home() {
           cancelHandler={handleCancel}
           confirmHandler={handleEditConfirm}
         />
+        <FullPageLoader loading={loading} />
       </CustomLayout>
     </main>
   );

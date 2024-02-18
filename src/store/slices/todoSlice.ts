@@ -1,20 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-// {
-//     "todos": [
+
 //       {
 //         "id": 19,
 //         "todo": "Create a compost pile",
 //         "completed": true,
 //         "userId": 5 // user id is 5
 //       },
-//       {...},
-//       {...}
-//     ],
-//     "total": 3,
-//     "skip": 0,
-//     "limit": 3
-//   }
 
 
 export interface SingleTodo  {
@@ -38,6 +30,11 @@ export const todoSlice = createSlice({
     name: 'todoSlice',
     initialState,
     reducers: {
+        addTodo: (state, action) => {
+            const newTodo = action.payload;
+            state.todos.push(newTodo)
+            state.total++;
+        },
         setTodos: (state, action) => {
             const data = action.payload;
             state.todos = data.todos;
@@ -50,6 +47,6 @@ export const todoSlice = createSlice({
     },
 })
 
-export const { setTodos, resetTodos } = todoSlice.actions
+export const { setTodos, resetTodos, addTodo } = todoSlice.actions
 
 export default todoSlice.reducer
