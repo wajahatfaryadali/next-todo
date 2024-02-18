@@ -7,14 +7,15 @@ import {
 // import avatar from '@/assets/images/userPlaceholder.jpg'
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import React from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { removeUser } from '@/store/slices/userSlice';
-import { toaster } from '@/utils/helpers/toaster';
 import { resetTodos } from '@/store/slices/todoSlice';
+import { currentUser } from '@/store/slices/selectors/user.selector';
 
 const LogoutPopper = () => {
 
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+    const user = useSelector(currentUser)
 
     const dispatch = useDispatch();
 
@@ -32,7 +33,6 @@ const LogoutPopper = () => {
     const handleLogout = () => {
         dispatch(removeUser())
         dispatch(resetTodos())
-        toaster.show('success', 'Logout Successfully!')
     }
 
     return (
@@ -56,7 +56,7 @@ const LogoutPopper = () => {
                 }}
             >
                 <Box component={'div'} sx={{ p: 1 }}>
-                    <Typography sx={{ p: 1 }}>UserName</Typography>
+                    <Typography sx={{ p: 1 }}>{user.firstName}</Typography>
                     <ButtonBase onClick={handleLogout} sx={{ p: 1, fontSize: '16px', width: '100%', justifyContent: 'left' }}  >Logout</ButtonBase>
                 </Box>
             </Popover >

@@ -14,7 +14,7 @@ import { toaster } from "@/utils/helpers/toaster";
 import { deleteTodoApi, getUsersTodoListApi, updateTodoApi } from "@/apis/todos/todoApis";
 import { useRouter } from "next/navigation";
 import { URL_SIGN_IN } from "@/utils/routes-path";
-import { todosList } from "@/store/slices/selectors/todo.selector";
+import { todosList, totalTodos } from "@/store/slices/selectors/todo.selector";
 import FullPageLoader from "./loading";
 import { ERR_TODO_CANNOT_EMPTY, ERR_TODO_UPDATED, TODO_DELETED, TODO_UPDATED } from "@/utils/constants/messages";
 import { containsOnlySpaces } from "@/utils/helpers/helpers";
@@ -39,6 +39,7 @@ export default function Home() {
 
   // getting todos from store
   const todos = useSelector(todosList)
+  const totalTodosCount = useSelector(totalTodos)
 
   const getAllTodosApiCall = () => {
     if (user && user.id) {
@@ -144,11 +145,8 @@ export default function Home() {
                 className={classes.titleContainer}
                 mb={'1rem'}
               >
-                No tasks available. Add some tasks!
+                {totalTodosCount ? `Total Todoz ${totalTodosCount}` : 'No tasks available. Add some tasks!'}
               </Typography>
-              {/* handle different view */}
-              {/* All Todos */}
-              {/* Completed */}
               <List classes={{ root: classes.listItemContainer }} sx={{ mb: '2rem', p: { xs: '0.25rem', sm: '1rem 2rem 1rem' } }} >
                 {todos.map((todo) =>
                   <MListItem key={todo.id} todo={todo} handleTodoClick={handleTodoClick} />
