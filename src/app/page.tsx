@@ -7,113 +7,55 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import ConfirmBox from "@/components/TodoComponents/ConfirmBox/ConfirmBox";
 import UpdateTodoBox from "@/components/TodoComponents/UpdateTodoBox/UpdateTodoBox";
-import { useSelector } from "react-redux";
-import { authToken, currentUser } from "@/store/slices/user.selector";
+import { useDispatch, useSelector } from "react-redux";
+import { authToken, currentUser } from "@/store/slices/selectors/user.selector";
+import { SingleTodo, setTodos } from "@/store/slices/todoSlice";
+import { toaster } from "@/utils/helpers/toaster";
+import { getUsersTodoListApi } from "@/apis/todos/todoApis";
+import { useRouter } from "next/navigation";
+import { URL_SIGN_IN } from "@/utils/routes-path";
+import { todosList } from "@/store/slices/selectors/todo.selector";
 
 const MListItem = dynamic(() => import("@/components/muiComponents/MListItem.tsx/MListItem"), { ssr: false })
-
-const tempData = [
-  {
-    id: 1,
-    todo: "Do something nice for someone I care about",
-    completed: true,
-    userId: 26
-  },
-  {
-    id: 2,
-    todo: "Memorize the fifty states and their capitals",
-    completed: false,
-    userId: 48
-  },
-  {
-    id: 3,
-    todo: "Watch a classic movie",
-    completed: false,
-    userId: 4
-  },
-  {
-    id: 4,
-    todo: "Contribute code or a monetary donation to an open-source software project",
-    completed: false,
-    userId: 48
-  },
-  {
-    id: 5,
-    todo: "Solve a Rubik's cube",
-    completed: false,
-    userId: 31
-  },
-  {
-    id: 8,
-    todo: "Write a thank you letter to an influential person in your life",
-    completed: true,
-    userId: 13
-  },
-  {
-    id: 9,
-    todo: "Invite some friends over for a game night",
-    completed: false,
-    userId: 47
-  },
-  {
-    id: 10,
-    todo: "Have a football scrimmage with some friends",
-    completed: false,
-    userId: 19
-  },
-  {
-    id: 11,
-    todo: "Text a friend you haven't talked to in a long time",
-    completed: false,
-    userId: 39
-  },
-  {
-    id: 12,
-    todo: "Organize your pantry",
-    completed: true,
-    userId: 39
-  },
-  {
-    id: 13,
-    todo: "Buy a new house decoration",
-    completed: false,
-    userId: 16
-  },
-  {
-    id: 14,
-    todo: "Plan a vacation you've always wanted to take",
-    completed: false,
-    userId: 28
-  },
-]
 
 interface ConfirmBoxState {
   delete: boolean;
   edit: boolean;
 }
 
-interface TodoListState {
-  id: number;
-  todo: string;
-  completed: boolean;
-  userId: number;
-}
-
 export default function Home() {
 
   const [confirmBox, setConfirmBox] = useState<ConfirmBoxState>({ delete: false, edit: false })
-  const [todoList, setTodoList] = useState<TodoListState[]>([])
-  const [selected, setSelected] = useState<TodoListState | null>(null)
+  const [selected, setSelected] = useState<SingleTodo | null>(null)
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const dispatch = useDispatch();
+  const router = useRouter();
 
   const user = useSelector(currentUser);
-  const token = useSelector(authToken);
-  console.log('user *** ', user)
-  console.log('token *** ', token)
 
+  // getting todos from store
+  const todos = useSelector(todosList)
 
   useEffect(() => {
-    setTodoList(tempData)
-  }, [])
+    setLoading(true)
+    if (user && user.id) {
+      getUsersTodoListApi(user.id)
+        .then(res => {
+          console.log('API response:', res);
+          dispatch(setTodos(res?.data))
+          setLoading(false)
+        })
+        .catch(err => {
+          console.error('API error:', err);
+          toaster.show('error', 'Failed to fetch todos');
+          setLoading(false)
+        });
+    } else {
+      router.push(URL_SIGN_IN)
+    }
+  }, []);
+
 
 
   const handleCancel = () => {
@@ -122,35 +64,36 @@ export default function Home() {
 
   const handleDelete = () => {
     if (selected) {
-      const updatedTodoList = todoList.filter(item => item.id !== selected.id);
-      setTodoList(updatedTodoList);
-      setConfirmBox({ delete: false, edit: false });
-      setSelected(null);
+      // const updatedTodoList = todoList.filter(item => item.id !== selected.id);
+      // setTodoList(updatedTodoList);
+      // setConfirmBox({ delete: false, edit: false });
+      // setSelected(null);
     }
   }
 
   const handleEditConfirm = () => {
     if (selected) {
-      const updatedTodoList = todoList.map(item =>
-        item.id === selected.id ? { ...item, todo: "text updated" } : item
+      // const updatedTodoList = todoList.map(item =>
+      //   item.id === selected.id ? { ...item, todo: "text updated" } : item
 
-      );
-      setTodoList(updatedTodoList);
-      setConfirmBox({ delete: false, edit: false });
-      setSelected(null);
+      // );
+      // // console.log(updatedTodoList)
+      // setTodoList(updatedTodoList);
+      // setConfirmBox({ delete: false, edit: false });
+      // setSelected(null);
     }
   }
 
   const handleTodoClick = (clickType: string, todoId: number) => {
     if (clickType === 'check') {
-      const updatedTodoList = todoList.map(item =>
-        item.id === todoId ? { ...item, completed: !item.completed } : item
-      );
-      setTodoList(updatedTodoList);
-    } else {
-      setConfirmBox(prevState => ({ ...prevState, [clickType]: true }))
-      const selectedItem = todoList.find(item => item.id === todoId);
-      setSelected(selectedItem || null);
+    //   const updatedTodoList = todoList.map(item =>
+    //     item.id === todoId ? { ...item, completed: !item.completed } : item
+    //   );
+    //   setTodoList(updatedTodoList);
+    // } else {
+    //   setConfirmBox(prevState => ({ ...prevState, [clickType]: true }))
+    //   const selectedItem = todoList.find(item => item.id === todoId);
+    //   setSelected(selectedItem || null);
     }
   }
 
@@ -182,7 +125,7 @@ export default function Home() {
               {/* All Todos */}
               {/* Completed */}
               <List classes={{ root: classes.listItemContainer }} sx={{ mb: '2rem', p: { xs: '0.25rem', sm: '1rem 2rem 1rem' } }} >
-                {todoList.map((todo) =>
+                {todos.map((todo) =>
                   <MListItem key={todo.id} todo={todo} handleTodoClick={handleTodoClick} />
                 )}
               </List>

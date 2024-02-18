@@ -16,7 +16,7 @@ export interface userSliceState {
     authToken: string;
 }
 
-const initialState = {
+const initialState: userSliceState = {
     currentUser: {
         email: '',
         firstName: '',

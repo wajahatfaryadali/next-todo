@@ -7,16 +7,11 @@ import {
 
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import { SingleTodo } from '@/store/slices/todoSlice';
 
-type todo = {
-    id: number,
-    todo: string,
-    completed: boolean;
-    userId: number;
-}
 
 interface MListItemProps {
-    todo: todo;
+    todo: SingleTodo;
     handleTodoClick: (clickType: string, todoId: number) => void
 }
 

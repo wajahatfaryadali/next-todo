@@ -14,7 +14,7 @@ import { signInApi } from '@/apis/auth/authApis'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from '@/store/slices/userSlice'
 import { useRouter } from 'next/navigation'
-import { currentUser } from '@/store/slices/user.selector'
+import { currentUser } from '@/store/slices/selectors/user.selector'
 import FullPageLoader from '@/app/loading'
 
 const page = () => {
@@ -29,7 +29,7 @@ const page = () => {
   })
 
   const user = useSelector(currentUser);
-  console.log('user **** ', user)
+  // console.log('user **** ', user)
 
   useEffect(() => {
     if (user.token) {

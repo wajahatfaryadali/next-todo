@@ -40,7 +40,7 @@ const page = () => {
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    console.log('cehngae', event.target.id)
+    // console.log('cehngae', event.target.id)
     setValue({
       ...value,
       [event.target.id]: event.target.value
@@ -50,7 +50,7 @@ const page = () => {
   const confirmCreation = () => {
     setShowWarning(false);
     signUpApi(value).then((res: any) => {
-      console.log('res *** ', res)
+      // console.log('res *** ', res)
       toaster.show('success', SUCCESS_USER_ADDED)
       setValue({
         firstName: '',

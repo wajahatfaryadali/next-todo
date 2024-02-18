@@ -8,7 +8,7 @@ import classes from './customLaout.module.css';
 import TopBar from "../muiComponents/TopBar/TopBar";
 import Loading from "@/app/loading";
 import { useSelector } from "react-redux";
-import { currentUser } from "@/store/slices/user.selector";
+import { currentUser } from "@/store/slices/selectors/user.selector";
 import { URL_SIGN_IN, URL_SIGN_UP } from "@/utils/routes-path";
 
 
