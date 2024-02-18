@@ -3,10 +3,41 @@
     "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
     "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
 
-    /* colors used for layout */
+  /* colors used for layout */
   --darkBodyColor: #2a385c;
   --darkBodyFontColor: #f9f9fb;
 
+}
+
+/* adding below cde because input field me jo suggestions aati hain on ka style disturb ho rha */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #23282f inset !important;
+  -webkit-text-fill-color: white !important;
+}
+
+/* scroll bar style */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 0px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color: #525d6d;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #0f1114;
 }
 
 * {
@@ -24,11 +55,16 @@ body {
 
 body {
   background-color: var(--darkBodyColor);
-  background-image: linear-gradient(320deg, hsl(215, 10%, 12%) 0% /* down */, hsl(215, 19%, 24%) /* up */ 100%);
+  background-image: linear-gradient(320deg, hsl(215, 10%, 12%) 0%
+      /* down */
+      , hsl(215, 19%, 24%)
+      /* up */
+      100%);
   color: var(--darkBodyFontColor);
   font-size: 14px;
   margin: 0;
-  min-height: 100vh; 
+  min-height: 100vh;
+  overflow: hidden;
   font-family: var(--font-mono);
 }
 
