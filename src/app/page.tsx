@@ -1,25 +1,27 @@
 'use client'
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+import { Box } from "@mui/material";
+
+import FullPageLoader from "./loading";
+import classes from "./page.module.css";
+
 import CustomLayout from "@/components/CustomLayout/CustomLayout";
 import CreateTodo from "@/components/TodoComponents/CreateTodo/CreateTodo";
-import { Box, List, Typography } from "@mui/material";
-import classes from "./page.module.css";
-import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
 import ConfirmBox from "@/components/TodoComponents/ConfirmBox/ConfirmBox";
 import UpdateTodoBox from "@/components/TodoComponents/UpdateTodoBox/UpdateTodoBox";
-import { useDispatch, useSelector } from "react-redux";
+import ListContainer from "@/components/TodoComponents/ListContainer/ListContainer";
+
 import { currentUser } from "@/store/slices/selectors/user.selector";
 import { SingleTodo, deleteTodo, setTodos, updateTodo } from "@/store/slices/todoSlice";
-import { toaster } from "@/utils/helpers/toaster";
 import { deleteTodoApi, getUsersTodoListApi, updateTodoApi } from "@/apis/todos/todoApis";
-import { useRouter } from "next/navigation";
+
 import { URL_SIGN_IN } from "@/utils/routes-path";
-import { todosList, totalTodos } from "@/store/slices/selectors/todo.selector";
-import FullPageLoader from "./loading";
+import { toaster } from "@/utils/helpers/toaster";
 import { ERR_TODO_CANNOT_EMPTY, ERR_TODO_UPDATED, TODO_DELETED, TODO_UPDATED } from "@/utils/constants/messages";
 import { containsOnlySpaces } from "@/utils/helpers/helpers";
 
-const MListItem = dynamic(() => import("@/components/muiComponents/MListItem.tsx/MListItem"), { ssr: false })
 
 interface ConfirmBoxState {
   delete: boolean;
@@ -35,11 +37,7 @@ export default function Home() {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const user = useSelector(currentUser);
-
-  // getting todos from store
-  const todos = useSelector(todosList)
-  const totalTodosCount = useSelector(totalTodos)
+  const user = useSelector(currentUser);  
 
   const getAllTodosApiCall = () => {
     if (user && user.id) {
@@ -139,19 +137,7 @@ export default function Home() {
           {/* list container */}
           <Box component={'div'} className={classes.listContainer}>
             <Box sx={{ width: { xs: '100%', sm: '90%', md: '80%' }, pt: '2rem' }}>
-              <Typography
-                variant="h5"
-                fontSize={{ xs: '1rem', sm: '1.5rem' }}
-                className={classes.titleContainer}
-                mb={'1rem'}
-              >
-                {totalTodosCount ? `Total Todoz ${totalTodosCount}` : 'No tasks available. Add some tasks!'}
-              </Typography>
-              <List classes={{ root: classes.listItemContainer }} sx={{ mb: '2rem', p: { xs: '0.25rem', sm: '1rem 2rem 1rem' } }} >
-                {todos.map((todo) =>
-                  <MListItem key={todo.id} todo={todo} handleTodoClick={handleTodoClick} />
-                )}
-              </List>
+              <ListContainer handleTodoClick={handleTodoClick} />
             </Box>
           </Box>
         </div>

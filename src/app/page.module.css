@@ -29,5 +29,21 @@
     box-shadow: 0 12px 16px #00000040;
     text-align: center;
     padding: 1rem;
-    color: whitesmoke;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+}
+
+.allButton {
+    background-image: linear-gradient(90deg, #028ce1 0%, #6acbe0 100%) !important;
+}
+
+.completedButton {
+    background-image: linear-gradient(90deg, #2fd4bd 0%, #66e887 100%) !important;
+}
+
+.inCompletedButton {
+    background-image: linear-gradient(90deg, #fe8080 33%, #fea380 100%) !important;
 }
