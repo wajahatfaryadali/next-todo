@@ -1,4 +1,3 @@
-import MTextField from '@/components/muiComponents/MTextField/MTextField';
 import { Box, Button, Divider, Modal, Typography } from '@mui/material'
 import React from 'react'
 
@@ -10,7 +9,6 @@ interface ConfirmBoxProps {
     editMode?: boolean,
     cancelHandler: () => void;
     confirmHandler: () => void;
-    handleTodoChange?: (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void
 }
 
 const ConfirmBox: React.FC<ConfirmBoxProps> = (props) => {
@@ -18,11 +16,9 @@ const ConfirmBox: React.FC<ConfirmBoxProps> = (props) => {
     const {
         title,
         message,
-        editMode,
         open,
         cancelHandler,
         confirmHandler,
-        handleTodoChange
     } = props;
 
     return (
@@ -46,15 +42,9 @@ const ConfirmBox: React.FC<ConfirmBoxProps> = (props) => {
                     {title}
                 </Typography>
                 <Divider sx={{ borderColor: '#fff', pt: 1 }} />
-                {editMode && handleTodoChange ?
-                    <Box py={2} maxWidth={'90%'} mx={'auto'}>
-                        <MTextField onChange={handleTodoChange} value={message} type='text' id='updateTodo' label='Update' />
-                    </Box>
-                    :
-                    <Typography sx={{ mt: 2 }} px={2}>
-                        {message}
-                    </Typography>
-                }
+                <Typography sx={{ mt: 2 }} px={2}>
+                    {message}
+                </Typography>
                 <Box sx={{ mt: 2, pt: 1, px: 2 }} display={'flex'} justifyContent={'flex-end'} gap={2}>
                     <Button variant='outlined' color='primary' onClick={cancelHandler}>
                         Cancel

@@ -12,7 +12,7 @@ import { SingleTodo } from '@/store/slices/todoSlice';
 
 interface MListItemProps {
     todo: SingleTodo;
-    handleTodoClick: (clickType: string, todoId: number) => void
+    handleTodoClick: (clickType: string, todo: SingleTodo) => void
 }
 
 const MListItem: React.FC<MListItemProps> = (props) => {
@@ -22,10 +22,10 @@ const MListItem: React.FC<MListItemProps> = (props) => {
         <ListItem
             secondaryAction={
                 <Box component={'div'} display={'flex'} gap={1}>
-                    <IconButton edge="end" aria-label="delete" onClick={() => handleTodoClick('delete', todo.id)} >
+                    <IconButton edge="end" aria-label="delete" onClick={() => handleTodoClick('delete', todo)} >
                         <DeleteOutlineOutlinedIcon color='primary' />
                     </IconButton>
-                    <IconButton edge="end" aria-label="edit" onClick={() => handleTodoClick('edit', todo.id)} >
+                    <IconButton edge="end" aria-label="edit" onClick={() => handleTodoClick('edit', todo)} >
                         <EditOutlinedIcon color='primary' />
                     </IconButton>
                 </Box>
@@ -42,7 +42,7 @@ const MListItem: React.FC<MListItemProps> = (props) => {
                 <Checkbox
                     checked={todo.completed}
                     disableRipple
-                    onClick={() => handleTodoClick('check', todo.id)}
+                    onClick={() => handleTodoClick('check', { ...todo, completed: !todo.completed })}
                     color='primary'
                     sx={{
                         color: "white",
@@ -52,7 +52,7 @@ const MListItem: React.FC<MListItemProps> = (props) => {
             <Box component={'div'} width={'100%'}>
                 <ListItemText
                     primary={todo.todo}
-                    onClick={() => handleTodoClick('check', todo.id)}
+                    onClick={() => handleTodoClick('check', { ...todo, completed: !todo.completed })}
                     sx={{ cursor: 'pointer', textDecoration: todo.completed ? 'line-through' : '' }}
                 />
             </Box>

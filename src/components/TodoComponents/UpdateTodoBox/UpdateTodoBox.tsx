@@ -1,29 +1,32 @@
 import MTextField from '@/components/muiComponents/MTextField/MTextField';
-import { Box, Button, Divider, Modal, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import { Box, Button, Modal } from '@mui/material'
+import React, { useEffect, useState } from 'react'
 
 
 interface UpdateTodoBoxProps {
-    // selectedTodoId: number
     selectedTodo: any;
     open: boolean;
     cancelHandler: () => void;
-    confirmHandler: () => void;
+    confirmHandler: (updatedText: string) => void;
 }
 
 const UpdateTodoBox: React.FC<UpdateTodoBoxProps> = (props) => {
 
-    // update setected todo with id from store
-    // remove extra ocde and start from this component and handle update functionality here 
     const {
         open,
-        // selectedTodoId,
         selectedTodo,
         cancelHandler,
         confirmHandler,
     } = props;
 
-    const [updatedTodo, setUpdatedTodo] = useState<string>(selectedTodo?.todo || '')
+    const [updatedTodo, setUpdatedTodo] = useState<string>('')
+
+    useEffect(() => {
+        setUpdatedTodo(selectedTodo?.todo)
+        return () => {
+            setUpdatedTodo('')
+        }
+    }, [open])
 
     const handleTodoChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setUpdatedTodo(event.target.value);
@@ -52,7 +55,7 @@ const UpdateTodoBox: React.FC<UpdateTodoBoxProps> = (props) => {
                     <Button variant='outlined' color='primary' onClick={cancelHandler}>
                         Cancel
                     </Button>
-                    <Button variant='contained' color='primary' onClick={confirmHandler} >
+                    <Button variant='contained' color='primary' onClick={() => confirmHandler(updatedTodo)} >
                         Update
                     </Button>
                 </Box>

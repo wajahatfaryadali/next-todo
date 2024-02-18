@@ -8,14 +8,16 @@ import { useEffect, useState } from "react";
 import ConfirmBox from "@/components/TodoComponents/ConfirmBox/ConfirmBox";
 import UpdateTodoBox from "@/components/TodoComponents/UpdateTodoBox/UpdateTodoBox";
 import { useDispatch, useSelector } from "react-redux";
-import { authToken, currentUser } from "@/store/slices/selectors/user.selector";
-import { SingleTodo, setTodos } from "@/store/slices/todoSlice";
+import { currentUser } from "@/store/slices/selectors/user.selector";
+import { SingleTodo, deleteTodo, setTodos, updateTodo } from "@/store/slices/todoSlice";
 import { toaster } from "@/utils/helpers/toaster";
-import { getUsersTodoListApi } from "@/apis/todos/todoApis";
+import { deleteTodoApi, getUsersTodoListApi, updateTodoApi } from "@/apis/todos/todoApis";
 import { useRouter } from "next/navigation";
 import { URL_SIGN_IN } from "@/utils/routes-path";
 import { todosList } from "@/store/slices/selectors/todo.selector";
 import FullPageLoader from "./loading";
+import { ERR_TODO_CANNOT_EMPTY, ERR_TODO_UPDATED, TODO_DELETED, TODO_UPDATED } from "@/utils/constants/messages";
+import { containsOnlySpaces } from "@/utils/helpers/helpers";
 
 const MListItem = dynamic(() => import("@/components/muiComponents/MListItem.tsx/MListItem"), { ssr: false })
 
@@ -61,47 +63,68 @@ export default function Home() {
     getAllTodosApiCall()
   }, []);
 
-
-
   const handleCancel = () => {
     setConfirmBox({ delete: false, edit: false });
   }
 
+  const hanldeUpdateTodoApiCall = async (todo: SingleTodo) => {
+    setLoading(true)
+    updateTodoApi(todo).then(res => {
+      setLoading(false)
+      dispatch(updateTodo(res.data));
+      toaster.show('success', TODO_UPDATED)
+    }).catch(err => {
+      console.log('err ***', err)
+      toaster.show('error', TODO_UPDATED)
+      setLoading(false)
+    })
+  }
+
   const handleDelete = () => {
     if (selected) {
-      // const updatedTodoList = todoList.filter(item => item.id !== selected.id);
-      // setTodoList(updatedTodoList);
-      // setConfirmBox({ delete: false, edit: false });
-      // setSelected(null);
+      setLoading(true)
+      deleteTodoApi(selected.id).then(res => {
+        // console.log('res delete *** ', res);
+        dispatch(deleteTodo(res.data))
+        toaster.show('success', TODO_DELETED)
+        setConfirmBox({ delete: false, edit: false });
+        setLoading(false)
+      }).catch(err => {
+        console.log('err delete *** ', err);
+        toaster.show('error', err);
+        setConfirmBox({ delete: false, edit: false });
+        setLoading(false)
+      })
     }
   }
 
-  const handleEditConfirm = () => {
+  const handleEditConfirm = async (updatedText: string) => {
+    setConfirmBox({ delete: false, edit: false });
     if (selected) {
-      // const updatedTodoList = todoList.map(item =>
-      //   item.id === selected.id ? { ...item, todo: "text updated" } : item
-
-      // );
-      // // console.log(updatedTodoList)
-      // setTodoList(updatedTodoList);
-      // setConfirmBox({ delete: false, edit: false });
-      // setSelected(null);
+      if (containsOnlySpaces(updatedText)) {
+        toaster.show('error', ERR_TODO_CANNOT_EMPTY);
+      } else {
+        const updatedTodo = {
+          ...selected,
+          todo: updatedText
+        }
+        hanldeUpdateTodoApiCall(updatedTodo);
+      }
+    } else {
+      toaster.show('error', ERR_TODO_UPDATED)
     }
   }
 
-  const handleTodoClick = (clickType: string, todoId: number) => {
+  const handleTodoClick = (clickType: string, todo: SingleTodo) => {
     if (clickType === 'check') {
-      //   const updatedTodoList = todoList.map(item =>
-      //     item.id === todoId ? { ...item, completed: !item.completed } : item
-      //   );
-      //   setTodoList(updatedTodoList);
-      // } else {
-      //   setConfirmBox(prevState => ({ ...prevState, [clickType]: true }))
-      //   const selectedItem = todoList.find(item => item.id === todoId);
-      //   setSelected(selectedItem || null);
+      hanldeUpdateTodoApiCall(todo);
+    } else {
+      setSelected(todo)
+      setConfirmBox(prevState => ({ ...prevState, [clickType]: true }))
     }
   }
 
+  console.log('todostodos *** ', todos);
   return (
     <main className={classes.main}>
       <CustomLayout>
@@ -144,7 +167,6 @@ export default function Home() {
         />
 
         <UpdateTodoBox
-          // selectedTodoId={selected?.id}
           selectedTodo={selected}
           open={confirmBox.edit}
           cancelHandler={handleCancel}
