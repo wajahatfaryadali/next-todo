@@ -16,7 +16,8 @@ import { useRouter } from "next/navigation";
 import { URL_SIGN_IN } from "@/utils/routes-path";
 import { todosList } from "@/store/slices/selectors/todo.selector";
 import FullPageLoader from "./loading";
-import { TODO_DELETED, TODO_UPDATED } from "@/utils/constants/messages";
+import { ERR_TODO_CANNOT_EMPTY, ERR_TODO_UPDATED, TODO_DELETED, TODO_UPDATED } from "@/utils/constants/messages";
+import { containsOnlySpaces } from "@/utils/helpers/helpers";
 
 const MListItem = dynamic(() => import("@/components/muiComponents/MListItem.tsx/MListItem"), { ssr: false })
 
@@ -97,9 +98,20 @@ export default function Home() {
     }
   }
 
-  const handleEditConfirm = async () => {
+  const handleEditConfirm = async (updatedText: string) => {
+    setConfirmBox({ delete: false, edit: false });
     if (selected) {
-
+      if (containsOnlySpaces(updatedText)) {
+        toaster.show('error', ERR_TODO_CANNOT_EMPTY);
+      } else {
+        const updatedTodo = {
+          ...selected,
+          todo: updatedText
+        }
+        hanldeUpdateTodoApiCall(updatedTodo);
+      }
+    } else {
+      toaster.show('error', ERR_TODO_UPDATED)
     }
   }
 
@@ -111,7 +123,6 @@ export default function Home() {
       setConfirmBox(prevState => ({ ...prevState, [clickType]: true }))
     }
   }
-
 
   console.log('todostodos *** ', todos);
   return (
