@@ -9,13 +9,14 @@ import ConfirmBox from "@/components/TodoComponents/ConfirmBox/ConfirmBox";
 import UpdateTodoBox from "@/components/TodoComponents/UpdateTodoBox/UpdateTodoBox";
 import { useDispatch, useSelector } from "react-redux";
 import { authToken, currentUser } from "@/store/slices/selectors/user.selector";
-import { SingleTodo, setTodos } from "@/store/slices/todoSlice";
+import { SingleTodo, setTodos, updateTodo } from "@/store/slices/todoSlice";
 import { toaster } from "@/utils/helpers/toaster";
-import { getUsersTodoListApi } from "@/apis/todos/todoApis";
+import { getUsersTodoListApi, updateTodoApi } from "@/apis/todos/todoApis";
 import { useRouter } from "next/navigation";
 import { URL_SIGN_IN } from "@/utils/routes-path";
 import { todosList } from "@/store/slices/selectors/todo.selector";
 import FullPageLoader from "./loading";
+import { TODO_UPDATED } from "@/utils/constants/messages";
 
 const MListItem = dynamic(() => import("@/components/muiComponents/MListItem.tsx/MListItem"), { ssr: false })
 
@@ -67,6 +68,21 @@ export default function Home() {
     setConfirmBox({ delete: false, edit: false });
   }
 
+  const hanldeUpdateTodoApiCall = async (todo: SingleTodo) => {
+    setLoading(true)
+    updateTodoApi(todo).then(res => {
+      setLoading(false)
+      // console.log('res ***', res.data)
+      dispatch(updateTodo(res.data));
+      toaster.show('success', TODO_UPDATED)
+    }).catch(err => {
+      console.log('err ***', err)
+      toaster.show('error', TODO_UPDATED)
+
+
+    })
+  }
+
   const handleDelete = () => {
     if (selected) {
       // const updatedTodoList = todoList.filter(item => item.id !== selected.id);
@@ -89,19 +105,23 @@ export default function Home() {
     }
   }
 
-  const handleTodoClick = (clickType: string, todoId: number) => {
+  const handleTodoClick = (clickType: string, todo: SingleTodo) => {
     if (clickType === 'check') {
-      //   const updatedTodoList = todoList.map(item =>
-      //     item.id === todoId ? { ...item, completed: !item.completed } : item
-      //   );
-      //   setTodoList(updatedTodoList);
-      // } else {
-      //   setConfirmBox(prevState => ({ ...prevState, [clickType]: true }))
-      //   const selectedItem = todoList.find(item => item.id === todoId);
-      //   setSelected(selectedItem || null);
+      console.log('todo check which is checked', todo);
+      hanldeUpdateTodoApiCall(todo);
     }
+    //   const updatedTodoList = todoList.map(item =>
+    //     item.id === todoId ? { ...item, completed: !item.completed } : item
+    //   );
+    //   setTodoList(updatedTodoList);
+    // } else {
+    //   setConfirmBox(prevState => ({ ...prevState, [clickType]: true }))
+    //   const selectedItem = todoList.find(item => item.id === todoId);
+    //   setSelected(selectedItem || null);
   }
 
+
+  // console.log('todostodos *** ', todos);
   return (
     <main className={classes.main}>
       <CustomLayout>
