@@ -2,8 +2,7 @@
 import React from 'react'
 import {
     Box, Checkbox, IconButton,
-    // InputBase,
-    ListItem, ListItemIcon, ListItemText
+    ListItem, ListItemIcon, ListItemText,
 } from "@mui/material"
 
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';

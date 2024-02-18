@@ -6,6 +6,7 @@ import classes from "./page.module.css";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import ConfirmBox from "@/components/TodoComponents/ConfirmBox/ConfirmBox";
+import UpdateTodoBox from "@/components/TodoComponents/UpdateTodoBox/UpdateTodoBox";
 
 const MListItem = dynamic(() => import("@/components/muiComponents/MListItem.tsx/MListItem"), { ssr: false })
 
@@ -107,9 +108,6 @@ export default function Home() {
   }, [])
 
 
-
-
-
   const handleCancel = () => {
     setConfirmBox({ delete: false, edit: false });
   }
@@ -123,7 +121,7 @@ export default function Home() {
     }
   }
 
-  const handleEdit = () => {
+  const handleEditConfirm = () => {
     if (selected) {
       const updatedTodoList = todoList.map(item =>
         item.id === selected.id ? { ...item, todo: "text updated" } : item
@@ -148,7 +146,7 @@ export default function Home() {
     }
   }
 
-  console.log(todoList)
+
 
   return (
     <main>
@@ -181,19 +179,19 @@ export default function Home() {
           </Box>
         </div>
         <ConfirmBox
-          title="Confirm Delete"
+          title="Delete Selected Todo"
           message={selected?.todo ?? ""}
           open={confirmBox.delete}
           cancelHandler={handleCancel}
           confirmHandler={handleDelete}
         />
 
-        <ConfirmBox
-          title="Update Todo"
-          message={selected?.todo ?? ""}
+        <UpdateTodoBox
+          // selectedTodoId={selected?.id}
+          selectedTodo={selected}
           open={confirmBox.edit}
           cancelHandler={handleCancel}
-          confirmHandler={handleEdit}
+          confirmHandler={handleEditConfirm}
         />
       </CustomLayout>
     </main>
