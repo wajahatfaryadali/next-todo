@@ -7,3 +7,9 @@ export const handleTopbarVisibility = (path: string) => {
         return true
     }
 }
+
+export function containsOnlySpaces(password: string | number) {
+    const string = password.toString().trim()
+    const regex = /^\s*$/;
+    return regex.test(string);
+}
