@@ -1,39 +1,19 @@
-<!-- should be removed -->
-# Only for me I mean Wajahat Ali:
-
-### Part 1: Environment Setup and Initial Commit
-  - Set up the development environment.
-  - Generate a boilerplate for the application.
-  - Push the initial codebase to a newly created GitHub repository.
-  - Open a pull request (PR) with the main branch.
-  - Review the PR, address feedback, and merge it into the main branch
-### Part 2: User Authentication Pages
-  - Create a new branch locally.
-  - Develop signup and login pages utilizing data from https://dummyjson.com/
-docs/.
-  - Implement user authentication functionalities.
-  - Commit and push the changes to the GitHub repository.
-  - Create a pull request with the main branch.
-
-### Part 3: To-Do Functionality Integration
-  - Develop “to-do” functionality within the app using data from https://
-dummyjson.com/docs/.
-  - Ensure CRUD (Create, Read, Update, Delete) operations for to-dos.
 
 ### packges used
-[MUI with icons](https://mui.com/material-ui/getting-started/installation/)
-[Redux toolkit](https://redux-toolkit.js.org/introduction/getting-started)
-[Axios](https://axios-http.com/docs/intro)
-[React Toastify](https://fkhadra.github.io/react-toastify/introduction/)
+- [MUI with icons](https://mui.com/material-ui/getting-started/installation/)
+- [Redux toolkit](https://redux-toolkit.js.org/introduction/getting-started)
+- [Axios](https://axios-http.com/docs/intro)
+- [React Toastify](https://fkhadra.github.io/react-toastify/introduction/)
+- [Redux Persist](https://github.com/rt2zz/redux-persist/blob/HEAD/docs/api.md)
 
+## Pkg details
+- node version : v21.4.0
+- npm version : 10.2.4
 
 ### 
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Pkg details
-- node version : v21.4.0
-- npm version : 10.2.4
 
 
 ## Getting Started
@@ -70,9 +50,3 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-#### things to do 
-- remove extra code
-- remove max inline style
-- sign out poper user avatar
-- 

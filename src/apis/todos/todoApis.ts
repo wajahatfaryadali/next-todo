@@ -48,9 +48,3 @@ export const deleteTodoApi = async (todoId: number | string) => {
         throw errorHandler(error)
     }
 }
-
-// fetch('https://dummyjson.com/todos/1', {
-//   method: 'DELETE',
-// })
-// .then(res => res.json())
-// .then(console.log);

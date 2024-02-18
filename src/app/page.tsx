@@ -1,25 +1,27 @@
 'use client'
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+import { Box } from "@mui/material";
+
+import FullPageLoader from "./loading";
+import classes from "./page.module.css";
+
 import CustomLayout from "@/components/CustomLayout/CustomLayout";
 import CreateTodo from "@/components/TodoComponents/CreateTodo/CreateTodo";
-import { Box, List, Typography } from "@mui/material";
-import classes from "./page.module.css";
-import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
 import ConfirmBox from "@/components/TodoComponents/ConfirmBox/ConfirmBox";
 import UpdateTodoBox from "@/components/TodoComponents/UpdateTodoBox/UpdateTodoBox";
-import { useDispatch, useSelector } from "react-redux";
+import ListContainer from "@/components/TodoComponents/ListContainer/ListContainer";
+
 import { currentUser } from "@/store/slices/selectors/user.selector";
 import { SingleTodo, deleteTodo, setTodos, updateTodo } from "@/store/slices/todoSlice";
-import { toaster } from "@/utils/helpers/toaster";
 import { deleteTodoApi, getUsersTodoListApi, updateTodoApi } from "@/apis/todos/todoApis";
-import { useRouter } from "next/navigation";
+
 import { URL_SIGN_IN } from "@/utils/routes-path";
-import { todosList } from "@/store/slices/selectors/todo.selector";
-import FullPageLoader from "./loading";
+import { toaster } from "@/utils/helpers/toaster";
 import { ERR_TODO_CANNOT_EMPTY, ERR_TODO_UPDATED, TODO_DELETED, TODO_UPDATED } from "@/utils/constants/messages";
 import { containsOnlySpaces } from "@/utils/helpers/helpers";
 
-const MListItem = dynamic(() => import("@/components/muiComponents/MListItem.tsx/MListItem"), { ssr: false })
 
 interface ConfirmBoxState {
   delete: boolean;
@@ -35,21 +37,18 @@ export default function Home() {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const user = useSelector(currentUser);
-
-  // getting todos from store
-  const todos = useSelector(todosList)
+  const user = useSelector(currentUser);  
 
   const getAllTodosApiCall = () => {
     if (user && user.id) {
       getUsersTodoListApi(user.id)
         .then(res => {
-          console.log('API response:', res);
+          // console.log('API response:', res);
           dispatch(setTodos(res?.data))
           setLoading(false)
         })
         .catch(err => {
-          console.error('API error:', err);
+          console.error('err setTodo*** ', err);
           toaster.show('error', 'Failed to fetch todos');
           setLoading(false)
         });
@@ -74,7 +73,7 @@ export default function Home() {
       dispatch(updateTodo(res.data));
       toaster.show('success', TODO_UPDATED)
     }).catch(err => {
-      console.log('err ***', err)
+      console.log('err updateTodo***', err)
       toaster.show('error', TODO_UPDATED)
       setLoading(false)
     })
@@ -84,13 +83,13 @@ export default function Home() {
     if (selected) {
       setLoading(true)
       deleteTodoApi(selected.id).then(res => {
-        // console.log('res delete *** ', res);
+        // console.log('res deleteTodo*** ', res);
         dispatch(deleteTodo(res.data))
         toaster.show('success', TODO_DELETED)
         setConfirmBox({ delete: false, edit: false });
         setLoading(false)
       }).catch(err => {
-        console.log('err delete *** ', err);
+        console.log('err deleteTodo*** ', err);
         toaster.show('error', err);
         setConfirmBox({ delete: false, edit: false });
         setLoading(false)
@@ -124,7 +123,6 @@ export default function Home() {
     }
   }
 
-  console.log('todostodos *** ', todos);
   return (
     <main className={classes.main}>
       <CustomLayout>
@@ -139,22 +137,7 @@ export default function Home() {
           {/* list container */}
           <Box component={'div'} className={classes.listContainer}>
             <Box sx={{ width: { xs: '100%', sm: '90%', md: '80%' }, pt: '2rem' }}>
-              <Typography
-                variant="h5"
-                fontSize={{ xs: '1rem', sm: '1.5rem' }}
-                className={classes.titleContainer}
-                mb={'1rem'}
-              >
-                No tasks available. Add some tasks!
-              </Typography>
-              {/* handle different view */}
-              {/* All Todos */}
-              {/* Completed */}
-              <List classes={{ root: classes.listItemContainer }} sx={{ mb: '2rem', p: { xs: '0.25rem', sm: '1rem 2rem 1rem' } }} >
-                {todos.map((todo) =>
-                  <MListItem key={todo.id} todo={todo} handleTodoClick={handleTodoClick} />
-                )}
-              </List>
+              <ListContainer handleTodoClick={handleTodoClick} />
             </Box>
           </Box>
         </div>

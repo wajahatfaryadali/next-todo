@@ -38,7 +38,7 @@ const CreateTodo = () => {
                 toaster.show('success', NEW_TODO_ADDED)
 
             }).catch(err => {
-                console.log('err *** ', err);
+                console.log('err addTodo*** ', err);
                 toaster.show('error', err)
             })
         }
