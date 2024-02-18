@@ -38,14 +38,6 @@ export const userSlice = createSlice({
             state.currentUser = action?.payload;
             state.authToken = action?.payload?.token ?? "";
         },
-        getUser: (state, action) => {
-            console.log('action *** ', action.payload)
-            console.log('state *** ', state)
-        },
-        getAuthToken: (state, action) => {
-            console.log('action *** ', action.payload)
-            console.log('state *** ', state)
-        },
         removeUser: (state) => {
             state.currentUser = initialState.currentUser;
             state.authToken = initialState.authToken;
@@ -53,6 +45,6 @@ export const userSlice = createSlice({
     },
 })
 
-export const { setUser, getUser, getAuthToken, removeUser } = userSlice.actions
+export const { setUser, removeUser } = userSlice.actions
 
 export default userSlice.reducer
