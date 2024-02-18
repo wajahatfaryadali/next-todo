@@ -55,8 +55,8 @@ const MTextField: React.FC<MTextFieldProps> = (props) => {
                         ?
                         <InputAdornment position='end' sx={{ cursor: 'pointer' }} onClick={() => setShowPassword(!showPassword)}>
                             {showPassword
-                                ? <VisibilityOffOutlinedIcon />
-                                : <VisibilityOutlinedIcon />}
+                                ? <VisibilityOffOutlinedIcon color="primary" />
+                                : <VisibilityOutlinedIcon color="primary" />}
                         </InputAdornment>
                         :
                         buttonOnLast !== ""

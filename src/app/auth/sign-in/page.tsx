@@ -17,10 +17,14 @@ const page = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
+    
+
+    
+
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    console.log('cehngae', event.target.id)
+    // console.log('cehngae', event.target.id)
     setValue({
       ...value,
       [event.target.id]: event.target.value
