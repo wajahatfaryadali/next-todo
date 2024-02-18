@@ -9,6 +9,16 @@
 
 }
 
+/* adding below cde because input field me jo suggestions aati hain on ka style disturb ho rha */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #23282f inset !important;
+  -webkit-text-fill-color: white !important;
+}
+
+
 * {
   box-sizing: border-box;
   padding: 0;
