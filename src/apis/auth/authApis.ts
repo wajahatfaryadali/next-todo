@@ -23,9 +23,7 @@ export const signUpApi = async (payload: SignUpFormValueState) => {
         firstName: payload.firstName,
         lastName: payload.lastName,
         age: payload.age ?? ''
-
     }
-
     try {
         const response = await axios.post(SIGN_UP_API_URL, payloadWithUserName);
         return response;

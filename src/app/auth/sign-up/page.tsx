@@ -17,19 +17,17 @@ import ConfirmBox from '@/components/TodoComponents/ConfirmBox/ConfirmBox'
 const page = () => {
 
   const router = useRouter();
+  const [showWarning, setShowWarning] = useState(false);
 
   const [value, setValue] = useState<SignUpFormValueState>({
     firstName: '',
     lastName: '',
     age: '',
-  })
-
-  const [showWarning, setShowWarning] = useState(false);
+  })  
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
 
-    // const arePasswordsSame = checkPasswordSame(value.password, value.confirmPassword);
     const onlySpacesFn = containsOnlySpaces(value.firstName);
     const onlySpacesLn = containsOnlySpaces(value.lastName);
 
@@ -48,8 +46,6 @@ const page = () => {
       [event.target.id]: event.target.value
     })
   }
-
-
 
   const confirmCreation = () => {
     setShowWarning(false);
@@ -85,20 +81,14 @@ const page = () => {
             Sign Up
           </Typography>
           <MTextField
-            // id="email"
-            // label="Email"
             id="firstName"
             label="First Name"
             type="text"
-            // value={value.email}
             value={value.firstName}
             onChange={handleChange}
             required
           />
           <MTextField
-            // id="password"
-            // label="Password"
-            // type="password"
             id="lastName"
             label="Last Name"
             type="text"
@@ -106,15 +96,6 @@ const page = () => {
             onChange={handleChange}
             required
           />
-
-          {/* <MTextField
-            id="confirmPassword"
-            label="Confirm Password"
-            type="password"
-            value={value.confirmPassword}
-            onChange={handleChange}
-            required
-          /> */}
 
           <MTextField
             id="age"
