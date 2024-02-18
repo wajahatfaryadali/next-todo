@@ -30,7 +30,7 @@ const LogoutPopper = () => {
 
     const handleLogout = () => {
         dispatch(removeUser())
-        toaster.show('success', '')
+        toaster.show('success', 'Logout Successfully!')
     }
 
     return (

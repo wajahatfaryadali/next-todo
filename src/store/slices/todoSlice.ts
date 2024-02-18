@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
-
+// remove below code
+// yhi mongo k sath b use krna hai mongo wali branch me same methods k sath
 export interface SingleTodo {
     id: number;
     todo: string;
     completed: boolean;
     userId: number;
+    isDeleted?: boolean
 }
 
 export interface todoSliceState {
@@ -22,6 +24,7 @@ export const todoSlice = createSlice({
     initialState,
     reducers: {
         addTodo: (state, action) => {
+            // signle add kr dia 
             const newTodo = action.payload;
             state.todos.push(newTodo)
             state.total++;
@@ -31,6 +34,9 @@ export const todoSlice = createSlice({
             if (index !== -1) {
                 state.todos[index] = action.payload;
             }
+        },
+        deleteTodo: (state, action) => {
+            state.todos = state.todos.filter(todo => !(todo.id === action.payload.id && action?.payload?.isDeleted));
         },
         setTodos: (state, action) => {
             const data = action.payload;
@@ -44,6 +50,6 @@ export const todoSlice = createSlice({
     },
 })
 
-export const { setTodos, resetTodos, addTodo, updateTodo } = todoSlice.actions
+export const { setTodos, resetTodos, addTodo, updateTodo, deleteTodo } = todoSlice.actions
 
 export default todoSlice.reducer

@@ -1,10 +1,9 @@
 import MTextField from '@/components/muiComponents/MTextField/MTextField';
-import { Box, Button, Divider, Modal, Typography } from '@mui/material'
+import { Box, Button, Modal } from '@mui/material'
 import React, { useState } from 'react'
 
 
 interface UpdateTodoBoxProps {
-    // selectedTodoId: number
     selectedTodo: any;
     open: boolean;
     cancelHandler: () => void;
@@ -13,11 +12,8 @@ interface UpdateTodoBoxProps {
 
 const UpdateTodoBox: React.FC<UpdateTodoBoxProps> = (props) => {
 
-    // update setected todo with id from store
-    // remove extra ocde and start from this component and handle update functionality here 
     const {
         open,
-        // selectedTodoId,
         selectedTodo,
         cancelHandler,
         confirmHandler,
