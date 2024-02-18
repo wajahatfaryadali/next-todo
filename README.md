@@ -22,6 +22,7 @@ dummyjson.com/docs/.
 
 ### packges used
 [MUI with icons](https://mui.com/material-ui/getting-started/installation/)
+[Redux toolkit](https://redux-toolkit.js.org/introduction/getting-started)
 
 
 ### 
