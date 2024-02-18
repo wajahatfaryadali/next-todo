@@ -29,14 +29,12 @@ const page = () => {
   })
 
   const user = useSelector(currentUser);
-  // console.log('user **** ', user)
 
   useEffect(() => {
     if (user.token) {
       router.push(URL_HOME)
     }
   }, [user])
-
 
   const handleSubmit = async (event: React.FormEvent) => {
     setLoading(true)

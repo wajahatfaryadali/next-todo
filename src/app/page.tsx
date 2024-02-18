@@ -44,12 +44,12 @@ export default function Home() {
     if (user && user.id) {
       getUsersTodoListApi(user.id)
         .then(res => {
-          console.log('API response:', res);
+          // console.log('API response:', res);
           dispatch(setTodos(res?.data))
           setLoading(false)
         })
         .catch(err => {
-          console.error('API error:', err);
+          console.error('err setTodo*** ', err);
           toaster.show('error', 'Failed to fetch todos');
           setLoading(false)
         });
@@ -74,7 +74,7 @@ export default function Home() {
       dispatch(updateTodo(res.data));
       toaster.show('success', TODO_UPDATED)
     }).catch(err => {
-      console.log('err ***', err)
+      console.log('err updateTodo***', err)
       toaster.show('error', TODO_UPDATED)
       setLoading(false)
     })
@@ -84,13 +84,13 @@ export default function Home() {
     if (selected) {
       setLoading(true)
       deleteTodoApi(selected.id).then(res => {
-        // console.log('res delete *** ', res);
+        // console.log('res deleteTodo*** ', res);
         dispatch(deleteTodo(res.data))
         toaster.show('success', TODO_DELETED)
         setConfirmBox({ delete: false, edit: false });
         setLoading(false)
       }).catch(err => {
-        console.log('err delete *** ', err);
+        console.log('err deleteTodo*** ', err);
         toaster.show('error', err);
         setConfirmBox({ delete: false, edit: false });
         setLoading(false)
@@ -124,7 +124,6 @@ export default function Home() {
     }
   }
 
-  console.log('todostodos *** ', todos);
   return (
     <main className={classes.main}>
       <CustomLayout>

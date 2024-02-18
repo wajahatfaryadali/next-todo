@@ -59,7 +59,7 @@ const page = () => {
       })
       router.push(URL_SIGN_IN);
     }).catch((err: any) => {
-      console.log('err *** ', err)
+      console.log('err signUpApi*** ', err)
       toaster.show('error', err);
     })
   }

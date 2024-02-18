@@ -10,6 +10,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux';
 import { removeUser } from '@/store/slices/userSlice';
 import { toaster } from '@/utils/helpers/toaster';
+import { resetTodos } from '@/store/slices/todoSlice';
 
 const LogoutPopper = () => {
 
@@ -30,6 +31,7 @@ const LogoutPopper = () => {
 
     const handleLogout = () => {
         dispatch(removeUser())
+        dispatch(resetTodos())
         toaster.show('success', 'Logout Successfully!')
     }
 

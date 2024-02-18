@@ -37,15 +37,15 @@ export const todoSlice = createSlice({
         },
         deleteTodo: (state, action) => {
             state.todos = state.todos.filter(todo => !(todo.id === action.payload.id && action?.payload?.isDeleted));
+            state.total--;
         },
         setTodos: (state, action) => {
             const data = action.payload;
             state.todos = data.todos;
             state.total = data.total;
         },
-        resetTodos: (state, action) => {
-            console.log('state *** ', state)
-            console.log('action *** ', action)
+        resetTodos: (state) => {
+            state.todos = initialState.todos
         },
     },
 })
