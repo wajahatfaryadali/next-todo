@@ -43,18 +43,25 @@ const page = () => {
     event.preventDefault()
     // check blank spaces
     if (containsOnlySpaces(value.password)) {
+
       toaster.show('error', ERR_PASSWORD_EMPTY);
       setLoading(false)
+
     } else if (value.email && value.password) {
+
       signInApi(value).then(res => {
+
         dispatch(setUser(res.data))
         toaster.show('success', SUCCESS_USER_LOGIN)
         setLoading(false)
         router.push(URL_HOME)
+
       })
         .catch(err => {
+
           toaster.show('error', err)
           setLoading(false)
+          
         });
     } else { }
   }

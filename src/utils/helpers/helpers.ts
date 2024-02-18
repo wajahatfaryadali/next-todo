@@ -13,3 +13,12 @@ export function containsOnlySpaces(password: string | number) {
     const regex = /^\s*$/;
     return regex.test(string);
 }
+
+
+export const checkPasswordSame = (password: string | number, confirmPassword: string | number) => {
+    if (password !== confirmPassword) {
+        return false;
+    } else {
+        return true;
+    }
+}

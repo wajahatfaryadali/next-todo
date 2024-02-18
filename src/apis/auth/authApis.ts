@@ -1,6 +1,6 @@
-import { SignInFormValueState } from "@/app/auth/config"
+import { SignInFormValueState, SignUpFormValueState } from "@/app/auth/config"
 import axios from "axios"
-import { SIGN_IN_API_URL } from "../apiConstants"
+import { SIGN_IN_API_URL, SIGN_UP_API_URL } from "../apiConstants"
 import { errorHandler } from "@/utils/helpers/apis"
 
 export const signInApi = async (payload: SignInFormValueState) => {
@@ -11,6 +11,23 @@ export const signInApi = async (payload: SignInFormValueState) => {
     }
     try {
         const response = await axios.post(SIGN_IN_API_URL, payloadWithUserName);
+        return response;
+    } catch (error) {
+        console.error('Error in signInApi:', errorHandler(error));
+        throw errorHandler(error)
+    }
+}
+
+export const signUpApi = async (payload: SignUpFormValueState) => {
+    const payloadWithUserName = {
+        firstName: payload.firstName,
+        lastName: payload.lastName,
+        age: payload.age ?? ''
+
+    }
+
+    try {
+        const response = await axios.post(SIGN_UP_API_URL, payloadWithUserName);
         return response;
     } catch (error) {
         console.error('Error in signInApi:', errorHandler(error));
