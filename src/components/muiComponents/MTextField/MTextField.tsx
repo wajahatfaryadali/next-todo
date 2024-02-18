@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { InputAdornment, TextField } from "@mui/material"
+import { Button, InputAdornment, TextField, TextFieldVariants } from "@mui/material"
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 
@@ -9,9 +9,11 @@ interface MTextFieldProps {
     type: string;
     fullWidth?: boolean;
     value: string | number;
-    // value: SignInFormValueState
-    onChange: (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void,
-    required?: boolean
+    onChange: (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void;
+    required?: boolean;
+    variant?: TextFieldVariants | undefined;
+    rootClass?: any;
+    buttonOnLast?: string;
 }
 
 const MTextField: React.FC<MTextFieldProps> = (props) => {
@@ -26,13 +28,16 @@ const MTextField: React.FC<MTextFieldProps> = (props) => {
         onChange,
         fullWidth = true,
         required = false,
+        rootClass = {},
+        variant = "outlined",
+        buttonOnLast = "",
     } = props;
 
     return (
         <TextField
             id={id}
             label={label}
-            variant="outlined"
+            variant={variant}
             type={
                 type === 'password'
                     ? showPassword
@@ -41,20 +46,55 @@ const MTextField: React.FC<MTextFieldProps> = (props) => {
                     : type}
             value={value}
             onChange={onChange}
-            // size="small"
             fullWidth={fullWidth}
             autoComplete={type === 'password' ? type : ""}
-
+            // autoComplete="off"
             InputProps={{
                 endAdornment:
-                    type === 'password' ?
+                    type === 'password'
+                        ?
                         <InputAdornment position='end' sx={{ cursor: 'pointer' }} onClick={() => setShowPassword(!showPassword)}>
                             {showPassword
                                 ? <VisibilityOffOutlinedIcon />
                                 : <VisibilityOutlinedIcon />}
-                        </InputAdornment> : '',
+                        </InputAdornment>
+                        :
+                        buttonOnLast !== ""
+                            ? <Button variant="text" type="submit" sx={{ width: '80px'}}>{buttonOnLast}</Button> // will only work for submit form because for now i have only this use
+                            : '',
+            }}
+            sx={{
+                color: '#fff',
+                '& .MuiInputBase-root': {
+                    paddingRight: buttonOnLast ? '0px' : '',
+                },
+                "&.label.Mui-focused": {
+                    color: 'white'
+                },
+                "& .MuiInputLabel-root": {
+                    color: '#fff',
+                    "&.Mui-focused": {
+                        color: '#fff'
+                    }
+                },
+                "& .MuiOutlinedInput-root": {
+                    color: 'white',
+                    '& fieldset': {
+                        borderColor: 'white',
+                    },
+                    '&:hover fieldset': {
+                        borderColor: 'white',
+                    },
+                    "&.Mui-focused fieldset": {
+                        borderColor: "white"
+                    },
+                    "&.fieldset": {
+                        borderColor: "white"
+                    }
+                }
             }}
             required={required}
+            classes={{ root: rootClass }}
         />
     )
 }

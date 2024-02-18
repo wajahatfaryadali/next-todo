@@ -1,0 +1,11 @@
+.InputField {
+    padding-right: 0px !important;
+    border-color: #fff;
+}
+
+.formContainer {
+    border-bottom: 1px solid #242930;
+    background-color: #23282f;
+    border-radius: 8px;
+    padding: 1rem;
+}
