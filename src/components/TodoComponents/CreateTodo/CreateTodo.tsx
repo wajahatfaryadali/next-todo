@@ -1,5 +1,3 @@
-'use client'
-
 import MTextField from "@/components/muiComponents/MTextField/MTextField"
 import { Box } from "@mui/material"
 import { useState } from "react"
@@ -10,12 +8,7 @@ import { addTodoApi } from "@/apis/todos/todoApis"
 import { addTodo } from "@/store/slices/todoSlice"
 import { toaster } from "@/utils/helpers/toaster"
 import { NEW_TODO_ADDED } from "@/utils/constants/messages"
-
-export interface AddTodoPayload {
-    todo: string,
-    completed: boolean;
-    userId: number | string;
-}
+import { AddTodoPayload } from "@/utils/constants/interfaces"
 
 const CreateTodo = () => {
 

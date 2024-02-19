@@ -1,9 +1,14 @@
+// I have used AXIOS for api call 
+// we can do this using thunk or saga but i think this is not as much complex to go with saga or thunk 
+// and we can also use RTK async thunk but because Axios is popular and most used one that's why i used it
+
+// setting this userId: string | number because in mongo it returns string 
+// and i am using this for later use
+
 import axios from "axios";
 import { ADD_TODO_API_URL, UPDATE_DELETE_TODO_API_URL, USERS_TODO_LIST_API_URL } from "../apiConstants";
 import { errorHandler } from "@/utils/helpers/apis";
-import { AddTodoPayload } from "@/components/TodoComponents/CreateTodo/CreateTodo";
-import { SingleTodo } from "@/store/slices/todoSlice";
-
+import { AddTodoPayload, SingleTodo } from "@/utils/constants/interfaces";
 export const getUsersTodoListApi = async (userId: string | number) => {
 
     try {

@@ -1,20 +1,9 @@
+// because this is simple app with less functionality and complexity
+// that's why using simple axios method to make api calls
+// and using slices just for state management
+
+import { userSliceState } from '@/utils/constants/interfaces';
 import { createSlice } from '@reduxjs/toolkit'
-
-export interface userApiResponse {
-    email: string;
-    firstName: string;
-    gender: string;
-    id: number | string;
-    image: string;
-    lastName: string;
-    token: string;
-    username: string;
-}
-
-export interface userSliceState {
-    currentUser: userApiResponse;
-    authToken: string;
-}
 
 const initialState: userSliceState = {
     currentUser: {

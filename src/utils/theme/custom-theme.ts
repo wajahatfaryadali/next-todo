@@ -1,12 +1,11 @@
+// just created this theme to change primary color of theme 
+
 import { createTheme } from "@mui/material/styles";
 
 export const Colors = {
-    // primary: "#e6b540", // goldish dark
     primary: "#edc35f", // goldish light
     white: "#fff",
 };
-
-// addding this just to change text and icon colors 
 
 export const customTheme = createTheme(
     {

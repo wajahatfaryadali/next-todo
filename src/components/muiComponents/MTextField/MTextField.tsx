@@ -1,20 +1,10 @@
 import React, { useState } from "react"
-import { Button, InputAdornment, TextField, TextFieldVariants } from "@mui/material"
+import { Button, InputAdornment, TextField } from "@mui/material"
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import { MTextFieldProps } from "@/utils/constants/interfaces";
 
-interface MTextFieldProps {
-    id: string;
-    label: string;
-    type: string;
-    fullWidth?: boolean;
-    value: string | number;
-    onChange: (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void;
-    required?: boolean;
-    variant?: TextFieldVariants | undefined;
-    rootClass?: any;
-    buttonOnLast?: string;
-}
+
 
 const MTextField: React.FC<MTextFieldProps> = (props) => {
 

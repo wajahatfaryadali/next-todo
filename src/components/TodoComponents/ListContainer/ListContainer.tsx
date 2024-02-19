@@ -1,16 +1,12 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import dynamic from 'next/dynamic'
-import { Box, Button, List } from '@mui/material'
-import { SingleTodo } from '@/store/slices/todoSlice'
+import { Box, Button, List, Typography } from '@mui/material'
 import { completedTodos, incompleteTodos, todosList, totalTodos } from '@/store/slices/selectors/todo.selector'
 import classes from '@/app/page.module.css'
+import { ListContainerProps } from '@/utils/constants/interfaces'
 
 const MListItem = dynamic(() => import("@/components/muiComponents/MListItem.tsx/MListItem"), { ssr: false })
-
-interface ListContainerProps {
-    handleTodoClick: (clickType: string, todo: SingleTodo) => void
-}
 
 const ListContainer: React.FC<ListContainerProps> = (props) => {
     const { handleTodoClick } = props;
@@ -32,14 +28,20 @@ const ListContainer: React.FC<ListContainerProps> = (props) => {
                 className={classes.titleContainer}
                 mb={'1rem'}
             >
-                <Button
-                    variant='contained'
-                    classes={{ root: classes.AllButton }}
-                    sx={{ width: '150px' }}
-                    onClick={() => updateList('all')}
-                >
-                    All {totalTodosCount}
-                </Button>
+                {totalTodosCount ?
+                    <Button
+                        variant='contained'
+                        classes={{ root: classes.AllButton }}
+                        sx={{ width: '150px' }}
+                        onClick={() => updateList('all')}
+                    >
+                        All {totalTodosCount}
+                    </Button>
+                    :
+                    <Typography variant='h5'>
+                        No todoz available. Add some!
+                    </Typography>
+                }
                 {totalCompleted.length ?
                     <Button
                         variant='contained'
@@ -61,20 +63,24 @@ const ListContainer: React.FC<ListContainerProps> = (props) => {
                     </Button> : <></>
                 }
             </Box>
-            <List classes={{ root: classes.listItemContainer }} sx={{ p: { xs: '0.25rem', sm: '1rem 2rem 1rem' } }} >
-                {listName === 'completed' ?
-                    totalCompleted.map((todo) =>
-                        <MListItem key={todo.id} todo={todo} handleTodoClick={handleTodoClick} />
-                    )
-                    : listName === 'incomplete' ?
-                        totalIncomplete.map((todo) =>
+            {totalTodosCount ?
+                <List classes={{ root: classes.listItemContainer }} sx={{ p: { xs: '0.25rem', sm: '1rem 2rem 1rem' } }} >
+                    {listName === 'completed' ?
+                        totalCompleted.map((todo) =>
                             <MListItem key={todo.id} todo={todo} handleTodoClick={handleTodoClick} />
                         )
-                        : todos.map((todo) =>
-                            <MListItem key={todo.id} todo={todo} handleTodoClick={handleTodoClick} />
-                        )
-                }
-            </List>
+                        : listName === 'incomplete' ?
+                            totalIncomplete.map((todo) =>
+                                <MListItem key={todo.id} todo={todo} handleTodoClick={handleTodoClick} />
+                            )
+                            : todos.map((todo) =>
+                                <MListItem key={todo.id} todo={todo} handleTodoClick={handleTodoClick} />
+                            )
+                    }
+                </List>
+                :
+                ''
+            }
         </>
     )
 }

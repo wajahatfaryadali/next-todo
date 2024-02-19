@@ -7,13 +7,8 @@ import {
 
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import { SingleTodo } from '@/store/slices/todoSlice';
 
-
-interface MListItemProps {
-    todo: SingleTodo;
-    handleTodoClick: (clickType: string, todo: SingleTodo) => void
-}
+import { MListItemProps } from '@/utils/constants/interfaces';
 
 const MListItem: React.FC<MListItemProps> = (props) => {
     const { todo, handleTodoClick } = props;

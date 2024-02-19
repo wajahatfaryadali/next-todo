@@ -1,20 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit'
-// remove below code
-// yhi mongo k sath b use krna hai mongo wali branch me same methods k sath
-export interface SingleTodo {
-    id: number;
-    todo: string;
-    completed: boolean;
-    userId: number;
-    isDeleted?: boolean
-}
+// because this is simple app with less functionality and complexity
+// that's why using simple axios method to make api calls
+// and using slices just for state management
 
-export interface todoSliceState {
-    todos: SingleTodo[];
-    completedTodos: SingleTodo[];
-    incompleteTodos: SingleTodo[];
-    total: number;
-}
+import { createSlice } from '@reduxjs/toolkit'
+import { SingleTodo, todoSliceState } from '@/utils/constants/interfaces';
 
 const initialState: todoSliceState = {
     todos: [],
@@ -23,18 +12,15 @@ const initialState: todoSliceState = {
     total: 0
 }
 
-// jha jha //temp likha hai wo testing k liye hai baad me remove krna hai
-
 export const todoSlice = createSlice({
     name: 'todoSlice',
     initialState,
     reducers: {
         addTodo: (state, action) => {
-            // signle add kr dia 
+            // single adding
             const newTodo = action.payload;
             state.todos.push(newTodo)
             state.total++;
-            //temp
             if (newTodo.completed) {
                 state.completedTodos.push(newTodo);
             } else {
@@ -43,7 +29,6 @@ export const todoSlice = createSlice({
         },
         updateTodo: (state, action) => {
             const index = state.todos.findIndex(todo => todo.id === action.payload.id);
-            // temp
             const updatedTodo = action.payload;
             if (index !== -1) {
                 state.todos[index] = updatedTodo;
