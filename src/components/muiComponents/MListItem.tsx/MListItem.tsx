@@ -18,14 +18,14 @@ const MListItem: React.FC<MListItemProps> = (props) => {
         <ListItem
             secondaryAction={
                 <Box component={'div'} display={'flex'} gap={1}>
-                    <IconButton edge="end" aria-label="delete" onClick={() => handleTodoClick('delete', todo)} >
+                    <IconButton edge="end" aria-label="delete" onClick={() => handleTodoClick('delete', todo)}>
                         <Tooltip title='delete' placement='top'>
-                            <DeleteOutlineOutlinedIcon color='primary' />
+                            <DeleteOutlineOutlinedIcon color='primary' sx={{fontSize: {xs: '18px', sm: '24px'}}} />
                         </Tooltip>
                     </IconButton>
                     <IconButton edge="end" aria-label="edit" disabled={todo.completed} onClick={() => handleTodoClick('edit', todo)} sx={{ opacity: todo.completed ? '0.25' : '1' }}>
                         <Tooltip title='edit' placement='top'>
-                            <EditOutlinedIcon color='primary' />
+                            <EditOutlinedIcon color='primary' sx={{fontSize: {xs: '18px', sm: '24px'}}} />
                         </Tooltip>
                     </IconButton>
                 </Box>
