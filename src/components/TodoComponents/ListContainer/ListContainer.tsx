@@ -67,7 +67,7 @@ const ListContainer: React.FC<ListContainerProps> = (props) => {
                 <List classes={{ root: classes.listItemContainer }} sx={{ p: { xs: '0.25rem', sm: '1rem 2rem 1rem' } }} >
                     {listName === 'completed' ?
                         totalCompleted.map((todo) =>
-                            <MListItem key={todo.id} todo={todo} handleTodoClick={handleTodoClick} />
+                            <MListItem key={todo.id} todo={todo} handleTodoClick={handleTodoClick} isCompletedList={true} />
                         )
                         : listName === 'incomplete' ?
                             totalIncomplete.map((todo) =>

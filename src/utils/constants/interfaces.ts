@@ -41,7 +41,8 @@ export interface todoSliceState {
 
 export interface MListItemProps {
     todo: SingleTodo;
-    handleTodoClick: (clickType: string, todo: SingleTodo) => void
+    handleTodoClick: (clickType: string, todo: SingleTodo) => void;
+    isCompletedList?: boolean;
 }
 
 export interface MTextFieldProps {
