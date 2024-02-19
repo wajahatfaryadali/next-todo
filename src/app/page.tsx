@@ -19,7 +19,7 @@ import { deleteTodoApi, getUsersTodoListApi, updateTodoApi } from "@/apis/todos/
 
 import { URL_SIGN_IN } from "@/utils/routes-path";
 import { toaster } from "@/utils/helpers/toaster";
-import { ERR_TODO_CANNOT_EMPTY, ERR_TODO_UPDATED, TODO_DELETED, TODO_UPDATED } from "@/utils/constants/messages";
+import { ERR_TODO_CANNOT_EMPTY, ERR_TODO_UPDATED, TODO_COMPLETED, TODO_DELETED, TODO_INCOMPLETE, TODO_UPDATED } from "@/utils/constants/messages";
 import { containsOnlySpaces } from "@/utils/helpers/helpers";
 
 
@@ -66,15 +66,16 @@ export default function Home() {
     setConfirmBox({ delete: false, edit: false });
   }
 
-  const hanldeUpdateTodoApiCall = async (todo: SingleTodo) => {
+  const hanldeUpdateTodoApiCall = async (todo: SingleTodo, type: string) => {
+    const successMsg = type === 'todoText' ? TODO_UPDATED : todo.completed ? TODO_COMPLETED : TODO_INCOMPLETE;
     setLoading(true)
     updateTodoApi(todo).then(res => {
       setLoading(false)
       dispatch(updateTodo(res.data));
-      toaster.show('success', TODO_UPDATED)
+      toaster.show('success', successMsg)
     }).catch(err => {
       console.log('err updateTodo***', err)
-      toaster.show('error', TODO_UPDATED)
+      toaster.show('error', err)
       setLoading(false)
     })
   }
@@ -107,7 +108,7 @@ export default function Home() {
           ...selected,
           todo: updatedText
         }
-        hanldeUpdateTodoApiCall(updatedTodo);
+        hanldeUpdateTodoApiCall(updatedTodo, 'todoText');
       }
     } else {
       toaster.show('error', ERR_TODO_UPDATED)
@@ -116,7 +117,7 @@ export default function Home() {
 
   const handleTodoClick = (clickType: string, todo: SingleTodo) => {
     if (clickType === 'check') {
-      hanldeUpdateTodoApiCall(todo);
+      hanldeUpdateTodoApiCall(todo, 'checkbox');
     } else {
       setSelected(todo)
       setConfirmBox(prevState => ({ ...prevState, [clickType]: true }))

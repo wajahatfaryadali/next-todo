@@ -1,4 +1,3 @@
-'use client'
 import React, { Suspense, useEffect, useMemo } from "react"
 import { Box, Container, ThemeProvider } from "@mui/material";
 import { usePathname, useRouter } from "next/navigation";

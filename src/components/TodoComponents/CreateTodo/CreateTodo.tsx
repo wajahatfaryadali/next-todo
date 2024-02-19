@@ -1,5 +1,3 @@
-'use client'
-
 import MTextField from "@/components/muiComponents/MTextField/MTextField"
 import { Box } from "@mui/material"
 import { useState } from "react"
