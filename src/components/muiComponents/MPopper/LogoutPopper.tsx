@@ -40,7 +40,7 @@ const LogoutPopper = () => {
             <IconButton onClick={handleClick} sx={{ padding: 0 }}>
                 {/* will use Avatar with imgs */}
                 {/* <Avatar alt="Remy Sharp" src={"/static/images/avatar/2.jpg"} /> */}
-                <AccountCircle sx={{ color: '#fff' }} />
+                <AccountCircle sx={{ color: '#fff', fontSize: '32px' }} />
             </IconButton>
             <Popover
                 id={id}

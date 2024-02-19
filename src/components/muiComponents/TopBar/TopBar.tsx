@@ -13,10 +13,11 @@ const TopBar = () => {
                     <Container
                         sx={{
                             display: 'flex',
-                            justifyContent: 'space-between'
+                            justifyContent: 'space-between',
+                            alignItems: 'center'
                         }}
                     >
-                        <Typography>
+                        <Typography fontSize={{xs: '22px', sm: '32px'}}>
                             Todoz
                         </Typography>
                         <>
