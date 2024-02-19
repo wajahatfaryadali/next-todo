@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import dynamic from 'next/dynamic'
-import { Box, Button, List, Typography } from '@mui/material'
+import { Box, Button, List, Theme, Typography } from '@mui/material'
 import { completedTodos, incompleteTodos, todosList, totalTodos } from '@/store/slices/selectors/todo.selector'
 import classes from '@/app/page.module.css'
 import { ListContainerProps } from '@/utils/constants/interfaces'
+
+import useMediaQuery from "@mui/material/useMediaQuery";
+
 
 const MListItem = dynamic(() => import("@/components/muiComponents/MListItem.tsx/MListItem"), { ssr: false })
 
@@ -15,6 +18,9 @@ const ListContainer: React.FC<ListContainerProps> = (props) => {
     const totalTodosCount = useSelector(totalTodos)
     const totalCompleted = useSelector(completedTodos)
     const totalIncomplete = useSelector(incompleteTodos)
+
+    const isFullWidth = useMediaQuery((theme: Theme) => theme.breakpoints.only("xs"));
+
 
     const [listName, setListName] = useState<string>('');
 
@@ -27,12 +33,14 @@ const ListContainer: React.FC<ListContainerProps> = (props) => {
             <Box
                 className={classes.titleContainer}
                 mb={'1rem'}
+                flexDirection={{ xs: 'column', sm: 'row' }}
             >
                 {totalTodosCount ?
                     <Button
                         variant='contained'
                         classes={{ root: classes.AllButton }}
-                        sx={{ width: '150px' }}
+                        sx={{ minWidth: '150px' }}
+                        fullWidth={isFullWidth}
                         onClick={() => updateList('all')}
                     >
                         All {totalTodosCount}
@@ -46,7 +54,8 @@ const ListContainer: React.FC<ListContainerProps> = (props) => {
                     <Button
                         variant='contained'
                         classes={{ root: classes.completedButton }}
-                        sx={{ width: '150px' }}
+                        sx={{ minWidth: '150px' }}
+                        fullWidth={isFullWidth}
                         onClick={() => updateList('completed')}
                     >
                         Completed {totalCompleted.length}
@@ -56,7 +65,8 @@ const ListContainer: React.FC<ListContainerProps> = (props) => {
                     <Button
                         variant='contained'
                         classes={{ root: classes.inCompletedButton }}
-                        sx={{ width: '150px' }}
+                        sx={{ minWidth: '150px' }}
+                        fullWidth={isFullWidth}
                         onClick={() => updateList('incomplete')}
                     >
                         In Complete {totalIncomplete.length}
