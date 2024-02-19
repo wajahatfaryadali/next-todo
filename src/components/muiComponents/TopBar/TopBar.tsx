@@ -5,7 +5,6 @@ import Toolbar from '@mui/material/Toolbar';
 import classes from './topBar.module.css'
 import LogoutPopper from '../MPopper/LogoutPopper';
 
-
 const TopBar = () => {
     return (
         <Box sx={{ flexGrow: 1 }}>

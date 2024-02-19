@@ -1,3 +1,5 @@
+// this file contains general helpers can be use any where in app
+
 import { URL_SIGN_IN, URL_SIGN_UP } from "../routes-path";
 
 export const handleTopbarVisibility = (path: string) => {

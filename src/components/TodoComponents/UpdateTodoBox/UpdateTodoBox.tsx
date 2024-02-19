@@ -1,14 +1,7 @@
 import MTextField from '@/components/muiComponents/MTextField/MTextField';
+import { UpdateTodoBoxProps } from '@/utils/constants/interfaces';
 import { Box, Button, Modal } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-
-
-interface UpdateTodoBoxProps {
-    selectedTodo: any;
-    open: boolean;
-    cancelHandler: () => void;
-    confirmHandler: (updatedText: string) => void;
-}
 
 const UpdateTodoBox: React.FC<UpdateTodoBoxProps> = (props) => {
 

@@ -1,3 +1,7 @@
+// store is being used for state management 
+// and persistor added so our data stay persisted until we logout 
+// and in this app i didn't add session expire mechanism because i didn't think any use in this app if needed then sorry :)
+
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import userReducer from './slices/userSlice';
 import todoReducer from './slices/todoSlice';

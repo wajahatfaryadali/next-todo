@@ -8,7 +8,11 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Todoz",
+  title: {
+    absolute: "",
+    default: "Home | Todoz",
+    template: "%s | Todoz"
+  },
   description: "Todoz App",
 };
 

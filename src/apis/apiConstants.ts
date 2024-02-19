@@ -1,9 +1,10 @@
+// as we have limited number of apis that's why using single file for these constants
+
 // auth
 const login = '/auth/login'
 const addUser = '/users/add'
 
 // todos
-// 'https://dummyjson.com/todos/user/5
 const addTodo = "/todos/add"
 const usersTodo = "/todos/user/"
 const update_delete_todo = '/todos/'

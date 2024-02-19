@@ -1,18 +1,24 @@
 'use client'
-import CustomLayout from '@/components/CustomLayout/CustomLayout'
-import BoxContainer from '@/components/muiComponents/BoxContainer/BoxContainer'
 import React, { useState } from 'react'
-import { SignUpFormValueState } from '../config'
-import { Box, Button, Typography } from '@mui/material'
 import Link from 'next/link'
-import { URL_SIGN_IN } from '@/utils/routes-path'
-import MTextField from '@/components/muiComponents/MTextField/MTextField'
-import { containsOnlySpaces } from '@/utils/helpers/helpers'
-import { toaster } from '@/utils/helpers/toaster'
-import { ERR_AGE, ERR_FIRST_NAME_EMPTY, ERR_LAST_NAME_EMPTY, SUCCESS_USER_ADDED, USER_CREATION_WARNING } from '@/utils/constants/messages'
-import { signUpApi } from '@/apis/auth/authApis'
 import { useRouter } from 'next/navigation'
+import { URL_SIGN_IN } from '@/utils/routes-path'
+import { SignUpFormValueState } from '@/utils/constants/interfaces'
+import { toaster } from '@/utils/helpers/toaster'
+import { containsOnlySpaces } from '@/utils/helpers/helpers'
+import {
+  ERR_AGE,
+  ERR_FIRST_NAME_EMPTY,
+  ERR_LAST_NAME_EMPTY,
+  SUCCESS_USER_ADDED,
+  USER_CREATION_WARNING
+} from '@/utils/constants/messages'
+import BoxContainer from '@/components/muiComponents/BoxContainer/BoxContainer'
+import MTextField from '@/components/muiComponents/MTextField/MTextField'
 import ConfirmBox from '@/components/TodoComponents/ConfirmBox/ConfirmBox'
+import { Box, Button, Typography } from '@mui/material'
+import { signUpApi } from '@/apis/auth/authApis'
+
 
 const page = () => {
 
@@ -23,7 +29,7 @@ const page = () => {
     firstName: '',
     lastName: '',
     age: '',
-  })  
+  })
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
@@ -65,7 +71,7 @@ const page = () => {
   }
 
   return (
-    <CustomLayout>
+    <>
       <BoxContainer>
         <Box
           component={'form'}
@@ -127,7 +133,7 @@ const page = () => {
           confirmHandler={confirmCreation}
         />
       </BoxContainer>
-    </CustomLayout>
+    </>
   )
 }
 

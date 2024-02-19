@@ -1,15 +1,6 @@
+import { ConfirmBoxProps } from '@/utils/constants/interfaces';
 import { Box, Button, Divider, Modal, Typography } from '@mui/material'
 import React from 'react'
-
-
-interface ConfirmBoxProps {
-    title: string;
-    message: string;
-    open: boolean;
-    editMode?: boolean,
-    cancelHandler: () => void;
-    confirmHandler: () => void;
-}
 
 const ConfirmBox: React.FC<ConfirmBoxProps> = (props) => {
 

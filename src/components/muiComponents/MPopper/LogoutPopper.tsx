@@ -38,6 +38,7 @@ const LogoutPopper = () => {
     return (
         <>
             <IconButton onClick={handleClick} sx={{ padding: 0 }}>
+                {/* will use Avatar with imgs */}
                 {/* <Avatar alt="Remy Sharp" src={"/static/images/avatar/2.jpg"} /> */}
                 <AccountCircle sx={{ color: '#fff' }} />
             </IconButton>
@@ -45,10 +46,6 @@ const LogoutPopper = () => {
                 id={id}
                 open={open}
                 anchorEl={anchorEl}
-                // transformOrigin={{
-                //     vertical: 'top',
-                //     horizontal: 'right',
-                //   }}
                 onClose={handleClose}
                 anchorOrigin={{
                     vertical: 'bottom',

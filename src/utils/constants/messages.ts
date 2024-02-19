@@ -1,3 +1,6 @@
+// these are messages or alerts for user
+
+
 // Error messages
 export const ERR_EMAIL_EMPTY = "Email cannot be empty.";
 export const ERR_PASSWORD_EMPTY = "Password cannot be empty.";

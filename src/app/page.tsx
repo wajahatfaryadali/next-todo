@@ -1,32 +1,31 @@
+// this is my home component where all of the todoz functionality working
+// and to land on this page we have to login with default credentials
+
 'use client'
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Box } from "@mui/material";
 
 import FullPageLoader from "./loading";
 import classes from "./page.module.css";
 
-import CustomLayout from "@/components/CustomLayout/CustomLayout";
+import TodoWrapper from "@/components/TodoWrapper/TodoWrapper";
 import CreateTodo from "@/components/TodoComponents/CreateTodo/CreateTodo";
 import ConfirmBox from "@/components/TodoComponents/ConfirmBox/ConfirmBox";
 import UpdateTodoBox from "@/components/TodoComponents/UpdateTodoBox/UpdateTodoBox";
 import ListContainer from "@/components/TodoComponents/ListContainer/ListContainer";
 
 import { currentUser } from "@/store/slices/selectors/user.selector";
-import { SingleTodo, deleteTodo, setTodos, updateTodo } from "@/store/slices/todoSlice";
+import { deleteTodo, setTodos, updateTodo } from "@/store/slices/todoSlice";
 import { deleteTodoApi, getUsersTodoListApi, updateTodoApi } from "@/apis/todos/todoApis";
 
-import { URL_SIGN_IN } from "@/utils/routes-path";
 import { toaster } from "@/utils/helpers/toaster";
+import { SingleTodo } from "@/utils/constants/interfaces";
 import { ERR_TODO_CANNOT_EMPTY, ERR_TODO_UPDATED, TODO_COMPLETED, TODO_DELETED, TODO_INCOMPLETE, TODO_UPDATED } from "@/utils/constants/messages";
 import { containsOnlySpaces } from "@/utils/helpers/helpers";
-
-
-interface ConfirmBoxState {
-  delete: boolean;
-  edit: boolean;
-}
+import { ConfirmBoxState } from "@/utils/constants/interfaces";
+import { URL_SIGN_IN, URL_SIGN_UP } from "@/utils/routes-path";
 
 export default function Home() {
 
@@ -34,10 +33,17 @@ export default function Home() {
   const [selected, setSelected] = useState<SingleTodo | null>(null)
   const [loading, setLoading] = useState<boolean>(false);
 
+  const urlPath = usePathname();
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const user = useSelector(currentUser);  
+  const user = useSelector(currentUser);
+
+  useEffect(() => {
+    if (!user.token && urlPath !== URL_SIGN_UP) {
+      router.replace(URL_SIGN_IN)
+    }
+  }, [user, urlPath])
 
   const getAllTodosApiCall = () => {
     if (user && user.id) {
@@ -126,7 +132,7 @@ export default function Home() {
 
   return (
     <main className={classes.main}>
-      <CustomLayout>
+      <TodoWrapper>
         <div style={{ position: 'relative' }}>
           <Box
             component={'div'}
@@ -157,7 +163,7 @@ export default function Home() {
           confirmHandler={handleEditConfirm}
         />
         <FullPageLoader loading={loading} />
-      </CustomLayout>
+      </TodoWrapper>
     </main>
   );
 }

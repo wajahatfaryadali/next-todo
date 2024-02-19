@@ -1,3 +1,6 @@
+// just created this component so i can simply use 
+// i have tried to use single with different types like using toast[type] but in this it didn't work
+
 import { toast } from "react-toastify";
 export const toaster = {
     show: (type: string, message: any,) => {

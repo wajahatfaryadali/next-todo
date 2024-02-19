@@ -1,21 +1,20 @@
 'use client'
-import CustomLayout from '@/components/CustomLayout/CustomLayout'
-import BoxContainer from '@/components/muiComponents/BoxContainer/BoxContainer'
-import { Box, Button, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useDispatch, useSelector } from 'react-redux'
+import { Box, Button, Typography } from '@mui/material'
 import { URL_HOME, URL_SIGN_UP } from '@/utils/routes-path'
-import { SignInFormValueState } from '../config'
-import MTextField from '@/components/muiComponents/MTextField/MTextField'
-import { toaster } from '@/utils/helpers/toaster'
+import { SignInFormValueState } from '@/utils/constants/interfaces'
 import { ERR_PASSWORD_EMPTY, SUCCESS_USER_LOGIN } from '@/utils/constants/messages'
+import { toaster } from '@/utils/helpers/toaster'
 import { containsOnlySpaces } from '@/utils/helpers/helpers'
 import { signInApi } from '@/apis/auth/authApis'
-import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from '@/store/slices/userSlice'
-import { useRouter } from 'next/navigation'
 import { currentUser } from '@/store/slices/selectors/user.selector'
 import FullPageLoader from '@/app/loading'
+import BoxContainer from '@/components/muiComponents/BoxContainer/BoxContainer'
+import MTextField from '@/components/muiComponents/MTextField/MTextField'
 
 const page = () => {
 
@@ -29,6 +28,21 @@ const page = () => {
   })
 
   const user = useSelector(currentUser);
+
+  useEffect(() => {
+    // setting up credentials default becuase there is no option to add your own user and use (according to dummyjson)
+    setValue({
+      email: 'kminchelle',
+      password: '0lelplR',
+    })
+    return () => {
+      setValue({
+        email: '',
+        password: '',
+      })
+    }
+  }, [])
+
 
   useEffect(() => {
     if (user.token) {
@@ -56,10 +70,8 @@ const page = () => {
 
       })
         .catch(err => {
-
           toaster.show('error', err)
           setLoading(false)
-          
         });
     } else { }
   }
@@ -72,7 +84,7 @@ const page = () => {
   }
 
   return (
-    <CustomLayout>
+    <>
       <BoxContainer>
         <Box
           component={'form'}
@@ -120,7 +132,7 @@ const page = () => {
         </Box>
       </BoxContainer>
       <FullPageLoader loading={loading} />
-    </CustomLayout>
+    </>
   )
 }
 

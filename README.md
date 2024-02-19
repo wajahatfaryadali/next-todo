@@ -1,3 +1,6 @@
+## Pkg details
+- node version : v21.4.0
+- npm version : 10.2.4
 
 ### packges used
 - [MUI with icons](https://mui.com/material-ui/getting-started/installation/)
@@ -5,10 +8,6 @@
 - [Axios](https://axios-http.com/docs/intro)
 - [React Toastify](https://fkhadra.github.io/react-toastify/introduction/)
 - [Redux Persist](https://github.com/rt2zz/redux-persist/blob/HEAD/docs/api.md)
-
-## Pkg details
-- node version : v21.4.0
-- npm version : 10.2.4
 
 ### 
 

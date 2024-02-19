@@ -1,11 +1,7 @@
 import { Box } from '@mui/material';
 import React from 'react'
+import { BoxContainerProps } from '@/utils/constants/interfaces';
 import classes from "./boxContainer.module.css"
-
-interface BoxContainerProps {
-    children: React.ReactNode
-    width?: string | number // can be 500px or 500 
-}
 
 const BoxContainer: React.FC<BoxContainerProps> = (props) => {
     const { children, width = 500 } = props;
